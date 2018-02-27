@@ -1,4 +1,11 @@
 <div class="container">
+  <button
+    class="btn btn-primary"
+    type="button"
+    (click)="sort()"
+    >
+    Sort
+  </button>
 <app-stock-add></app-stock-add>
 
 <table class="table table-stripped table-bordered">
@@ -7,13 +14,13 @@
             <th>Ticker</th>
             <th>Name</th>
             <th>Price</th>
-            <th>P/B</th>
-            <th>EPS</th>
-            <th>P/E</th>
-            <th>ROE</th>
-            <th>ROA</th>
-            <th>DivY</th>
-            <th>Perf</th>
+            <th class="th-toCalc">P/B</th>
+            <th class="th-toCalc">EPS</th>
+            <th class="th-toCalc">P/E</th>
+            <th class="th-toCalc">ROE</th>
+            <th class="th-toCalc">ROA</th>
+            <th class="th-toCalc">DivY</th>
+            <th class="th-toCalc">Perf</th>
         </tr>
     </thead>
     <tbody style="font-size: 14px;">

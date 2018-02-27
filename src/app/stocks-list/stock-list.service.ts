@@ -27,4 +27,14 @@ export class StockListService {
     return this.http.post('http://localhost:8090/v2/stocks/' + ticker, ticker)
   }
 
+  getSortedStocks() {
+    return this.http.get('http://localhost:8090/v2/stocks/sorted-by-trend')
+      .map(
+        (response: Response) => {
+                    const data = response.json();
+                    return data;
+                }
+      )
+  }
+
 }

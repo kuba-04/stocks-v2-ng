@@ -25,4 +25,12 @@ export class StocksListComponent implements OnInit {
       );
   }
 
+  sort() {
+    this.stockListService.getSortedStocks()
+      .subscribe(
+      (stocks: any[]) => this.stocks = stocks
+      // (error) => console.log(error)
+      );
+  }
+
 }
