@@ -1,7 +1,8 @@
-<div class="row">
-    <form (ngSubmit)="onAddTicker(f)" #f="ngForm">
-      <div class="col-sm-6 form-group">
+<div>
+    <form class="form-inline" (ngSubmit)="onAddTicker(f)" #f="ngForm">
+      <div class="col-sm-6" >
           <input
+            style="width: 70px;"
             type="text"
             id="ticker"
             class="form-control"
@@ -10,7 +11,7 @@
             ngModel
             >
       </div>
-      <div class="col-sm-6 form-group">
+      <div class="col-sm-6">
         <button
           class="btn btn-primary"
           type="submit"

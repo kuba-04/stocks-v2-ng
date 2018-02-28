@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+// import { Subject } from 'rxjs/Subject';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -27,14 +27,18 @@ export class StockListService {
     return this.http.post('http://localhost:8090/v2/stocks/' + ticker, ticker)
   }
 
-  getSortedStocks() {
-    return this.http.get('http://localhost:8090/v2/stocks/sorted-by-trend')
-      .map(
-        (response: Response) => {
-                    const data = response.json();
-                    return data;
-                }
-      )
+  deleteStock(ticker: string) {
+    return this.http.delete('http://localhost:8090/v2/stocks/' + ticker, ticker)
   }
+
+  // getSortedStocks() {
+  //   return this.http.get('http://localhost:8090/v2/stocks/sorted-by-trend')
+  //     .map(
+  //       (response: Response) => {
+  //                   const data = response.json();
+  //                   return data;
+  //               }
+  //     )
+  // }
 
 }

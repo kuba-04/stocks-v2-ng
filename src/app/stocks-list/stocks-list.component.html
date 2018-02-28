@@ -1,12 +1,19 @@
 <div class="container">
-  <button
-    class="btn btn-primary"
-    type="button"
-    (click)="sort()"
-    >
-    Sort
-  </button>
-<app-stock-add></app-stock-add>
+  <div class="row">
+    <app-stock-add></app-stock-add>
+    <div class="col-sm-4">
+      <button
+        (click)="onDeleteStock()"
+        *ngIf="editMode"
+        class="btn btn-danger"
+        type="button"
+        >
+        Delete {{ editedStock }}
+      </button>
+    </div>
+  </div>
+  
+<br>
 
 <table class="table table-stripped table-bordered">
   <thead>
@@ -24,7 +31,12 @@
         </tr>
     </thead>
     <tbody style="font-size: 14px;">
-        <tr *ngFor="let stock of stocks; let i = index">
+        <tr
+          *ngFor="let stock of stocks; let i = index"
+          class="stock-row"
+          (click)="onEditStock(stock.ticker)"
+          >
+          <!-- [ngClass]="editMode ? 'active' : 'inactive'" -->
             <td>{{ stock.ticker }}</td>
             <td>{{ stock.name }}</td>
             <td>{{ stock.price }}</td>

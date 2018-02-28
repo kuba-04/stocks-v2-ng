@@ -30,5 +30,5 @@ export class StockAddComponent implements OnInit {
         (error) => console.log(error)
       );
   }
-  
+
 }

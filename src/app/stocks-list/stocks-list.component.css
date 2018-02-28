@@ -1,3 +1,11 @@
 .th-toCalc {
   cursor: pointer;
 }
+
+.stock-row {
+  cursor: pointer;
+}
+
+.stock-row:hover, .active {
+  background-color: #DBD1D1;
+}
