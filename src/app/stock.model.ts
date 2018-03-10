@@ -2,6 +2,9 @@ export class Stock {
   constructor(
     public ticker: string,
     public name: string,
+    public sector: string,
+    public industry: string,
+    public description: string,
     public price: number,
     public priceToBook: number,
     public latestEPS: number,
@@ -9,6 +12,20 @@ export class Stock {
     public returnOnEquity: number,
     public returnOnAssets: number,
     public dividendYield: number,
-    public performanceTrend: number
+    public trend_ROE: number,
+    public trend_EPS: number,
+    public trend_DebtToEquity: number,
+    public roe_0: number,
+    public roe_1: number,
+    public roe_2: number,
+    public roe_3: number,
+    public actualEPS_0: number,
+    public actualEPS_1: number,
+    public actualEPS_2: number,
+    public actualEPS_3: number,
+    public debtToEquity_0: number,
+    public debtToEquity_1: number,
+    public debtToEquity_2: number,
+    public debtToEquity_3: number
   ) {}
 }

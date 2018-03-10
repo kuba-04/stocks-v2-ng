@@ -23,12 +23,13 @@ export class StockAddComponent implements OnInit {
         (response) => {
           if (response.ok) {
             // console.log("STATUS IS: " + response.status);
-            this.stocksListComponent.retrieveData()
+            this.stocksListComponent.retrieveData();
           }
 
         },
         (error) => console.log(error)
       );
+      form.reset();
   }
 
 }

@@ -8,7 +8,7 @@ import { StockListService } from './stocks-list/stock-list.service';
 import { StockAddComponent } from './stocks-list/stock-add/stock-add.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    NgbModule.forRoot()
   ],
   providers: [StockListService],
   bootstrap: [AppComponent]

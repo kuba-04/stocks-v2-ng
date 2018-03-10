@@ -9,3 +9,19 @@
 .stock-row:hover, .active {
   background-color: #DBD1D1;
 }
+
+.selected-ratio {
+  background-color: #DBD1D1;
+}
+
+.delete-icon, .info-icon {
+  color: grey;
+}
+
+.info-icon:hover {
+  color: black;
+}
+
+.delete-icon:hover {
+  color: red;
+}
