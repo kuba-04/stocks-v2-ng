@@ -1,0 +1,21 @@
+<div>
+    <form class="form-inline" (ngSubmit)="addPortfolio(f)" #f="ngForm">
+      <div class="col-sm-8" >
+          <input
+            type="text"
+            id="portfolio"
+            class="form-control"
+            placeholder="Portfolio"
+            name="portfolio"
+            ngModel
+            >
+      </div>
+      <div class="col-sm-4">
+        <button
+          type="submit"
+          >
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </form>
+</div>

@@ -8,21 +8,31 @@ import { StockListService } from './stocks-list/stock-list.service';
 import { StockAddComponent } from './stocks-list/stock-add/stock-add.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './header/header.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PortfolioAddComponent } from './portfolio-list/portfolio-add/portfolio-add.component';
+import { PortfolioListComponent } from './portfolio-list/portfolio-list.component';
+import { PortfolioListService } from './portfolio-list/portfolio-list.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     StocksListComponent,
-    StockAddComponent
+    StockAddComponent,
+    HeaderComponent,
+    PortfolioListComponent,
+    PortfolioAddComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    AppRoutingModule
   ],
-  providers: [StockListService],
+  providers: [StockListService, PortfolioListService, HeaderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,7 +12,7 @@ import { SortingOrder } from './sorting.model';
 })
 export class StocksListComponent implements OnInit {
   stocks: Stock[];
-  // editMode = false;
+  editMode = false;
   editedStock: string;
   sortingOrder: SortingOrder;
   selectedSorting: string[] = [];
@@ -136,15 +136,24 @@ export class StocksListComponent implements OnInit {
     }
   }
 
-  // onEditStock(ticker: string) {
-  //   this.editedStock = ticker;
-  //   if (this.editMode !== true) {
-  //     this.editMode = true;
-  //   }
-  // }
+  clearSelection() {
+    if (this.selectedSorting.length > 0)
+      this.selectedSorting = [];
+  }
 
-  // @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
-  //   this.editMode = false;
-  // }
+
+  onEditStock(ticker: string) {
+    this.editedStock = ticker;
+    console.log(ticker);
+    if (this.editMode !== true) {
+      this.editMode = true;
+    }
+  }
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
+    this.selectedSorting = [];
+    this.editMode = false;
+    this.editedStock = "";
+  }
 
 }

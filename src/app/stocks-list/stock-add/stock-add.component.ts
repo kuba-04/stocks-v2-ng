@@ -22,7 +22,7 @@ export class StockAddComponent implements OnInit {
       .subscribe(
         (response) => {
           if (response.ok) {
-            // console.log("STATUS IS: " + response.status);
+            console.log("STATUS IS: " + response.status);
             this.stocksListComponent.retrieveData();
           }
 

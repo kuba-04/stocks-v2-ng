@@ -3,6 +3,14 @@
     <app-stock-add></app-stock-add>
     <div class="col-sm-4">
       <button
+        (click)="clearSelection()"
+        class="btn"
+        type="button"
+        [disabled]="selectedSorting.length === 0"
+        >
+        Clear
+      </button>
+      <button
         (click)="onSortByCustom()"
         class="btn"
         type="button"
@@ -17,17 +25,8 @@
         >
         Sort By All
       </button>
-      <button
-        (click)="onDeleteStock()"
-        *ngIf="editMode"
-        class="btn btn-danger"
-        type="button"
-        >
-        Delete {{ editedStock }}
-      </button>
     </div>
   </div>
-
 <br>
 
 <table class="table table-stripped table-bordered">
@@ -56,30 +55,19 @@
           > -->
           <tr
             *ngFor="let stock of stocks; let i = index"
+            (click)="onEditStock(stock.ticker)"
+            [ngClass]="{'active': stock.ticker == editedStock }"
             class="stock-row"
             height="70px"
             >
-            <ng-template #tipContentDesc>
-              {{ stock.description }}
-            </ng-template>
-            <ng-template #tipContentInd>
-              {{ stock.industry }}
-            </ng-template>
-            <ng-template #tipContentROE>
-              <p>{{ stock.roe_3 }} / {{ stock.roe_2 }} / {{ stock.roe_1 }} / {{ stock.roe_0 }}</p>
-            </ng-template>
-            <ng-template #tipContentActualEPS>
-              <p>{{ stock.actualEPS_3 }} / {{ stock.actualEPS_2 }} / {{ stock.actualEPS_1 }} / {{ stock.actualEPS_0 }}</p>
-            </ng-template>
-            <ng-template #tipContentDebtToEquity>
-              <p>{{ stock.debtToEquity_3 }} / {{ stock.debtToEquity_2 }} / {{ stock.debtToEquity_1 }} / {{ stock.debtToEquity_0 }}</p>
-            </ng-template>
+            <ng-template #tipContentDesc>{{ stock.description }}</ng-template>
+            <ng-template #tipContentInd>{{ stock.industry }}</ng-template>
+            <ng-template #tipContentROE><p>{{ stock.roe_3 }} / {{ stock.roe_2 }} / {{ stock.roe_1 }} / {{ stock.roe_0 }}</p></ng-template>
+            <ng-template #tipContentActualEPS><p>{{ stock.actualEPS_3 }} / {{ stock.actualEPS_2 }} / {{ stock.actualEPS_1 }} / {{ stock.actualEPS_0 }}</p></ng-template>
+            <ng-template #tipContentDebtToEquity><p>{{ stock.debtToEquity_3 }} / {{ stock.debtToEquity_2 }} / {{ stock.debtToEquity_1 }} / {{ stock.debtToEquity_0 }}</p></ng-template>
 
             <td>{{ stock.ticker }}</td>
-            <td>
-              <span>{{ stock.name }}</span>
-              <span placement="top" [ngbTooltip]="tipContentDesc" container="body" style="float:right;" class="material-icons info-icon">info_outline</span>
-            </td>
+            <td><span>{{ stock.name }}</span></td>
             <td placement="top" [ngbTooltip]="tipContentInd" container="body">{{ stock.sector }}</td>
             <td>{{ stock.price }}</td>
             <td>{{ stock.priceToBook }}</td>
@@ -91,6 +79,11 @@
             <td placement="top" [ngbTooltip]="tipContentROE" container="body">{{ stock.trend_ROE }}</td>
             <td placement="top" [ngbTooltip]="tipContentActualEPS" container="body">{{ stock.trend_EPS }}</td>
             <td placement="top" [ngbTooltip]="tipContentDebtToEquity" container="body">{{ stock.trend_DebtToEquity }}</td>
+            <td>
+              <span placement="top" [ngbTooltip]="tipContentDesc" container="body" style="float:right;" class="material-icons info-icon">
+              info_outline
+              </span>
+            </td>
             <td><i class="material-icons delete-icon" (click)="onDeleteStock(stock.ticker)">delete</i></td>
         </tr>
     </tbody>
