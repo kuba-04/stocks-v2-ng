@@ -2,6 +2,7 @@ import { Component, Injectable, HostListener, OnInit, OnDestroy, Input, Output, 
 import { Subscription } from 'rxjs/Subscription';
 import { Portfolio } from '../portfolio.model';
 import { PortfolioListService } from '../portfolio-list/portfolio-list.service';
+// import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +12,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   enabledPortfolioForm: boolean = false;
   portfolios: Portfolio[];
   private subscription: Subscription;
-  @ViewChild("portfolioSelected") portfolioSelected: ElementRef;
-  enabledDelete = false;
+  activePortfolio: string = "";
 
-  constructor(private portfolioListService: PortfolioListService, private renderer: Renderer) {}
+  constructor(private portfolioListService: PortfolioListService,
+    private renderer: Renderer) {}
 
   ngOnInit() {
     this.portfolios = this.portfolioListService.getPortfolios();
@@ -24,28 +25,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
       );
   }
 
-  ngDoCheck() {
-    console.log(this.portfolioSelected.nativeElement.classList);
-    // if(this.portfolioSelected.nativeElement.classList.contains('active')) {
-    //   this.enabledDelete = true;
-    // }
+  onEditPortfolio(portfolio: string) {
+    console.log(portfolio);
+    this.activePortfolio = portfolio;
   }
 
   onAddPortfolio() {
     this.enabledPortfolioForm = true;
   }
 
-  onDeletePortfolio(portfolio: string) {
-    // console.log("to delete:"+portfolio);
-    // this.portfolioListService.deletePortfolio(index);
-  }
+  onDeletePortfolio(index: number, portfolio: string) {
+    if (confirm("Are you sure you want to delete portfolio: " + portfolio + "?")) {
+        this.portfolioListService.deletePortfolio(index);
+        // this.router.navigate(['../main'], {relativeTo: this.route});
 
-  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
-    this.enabledPortfolioForm = false;
+    }
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
+    this.enabledPortfolioForm = false;
   }
 
 }

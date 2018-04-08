@@ -8,19 +8,21 @@
       <ul class="navbar-nav nav-tabs">
         <li routerLinkActive="active" class="nav-item"
             #portfolioSelected
-            *ngFor="let portfolio of portfolios; let i = index">
+            *ngFor="let portfolio of portfolios; let i = index"
+            (click)="onEditPortfolio(portfolio.name)"
+            [ngClass]="{'active': portfolio.name == editedPortfolio }">
             <a [routerLink]="[portfolio.name]" class="nav-link" >
               {{ portfolio.name }}
-              <i *ngIf="!enabledDelete" (click)="onDeletePortfolio(i)" style="cursor: pointer; font-size: 10px;" class="material-icons">clear</i>
+              <i
+                [hidden]="activePortfolio !== portfolio.name || portfolio.name == 'main'"
+                (click)="onDeletePortfolio(i, portfolio.name)"
+                style="cursor: pointer; font-size: 10px;"
+                class="material-icons">
+                clear
+              </i>
             </a>
-
         </li>
         <li class="nav-item">
-          <!-- <a style="cursor: pointer;" class="nav-link" (click)="onAddPortfolio()">
-            <i *ngIf="!enabledPortfolioForm" class="material-icons">add</i>
-            <i *ngIf="!enabledPortfolioForm" class="material-icons">clear</i>
-            <app-portfolio-add *ngIf="enabledPortfolioForm"></app-portfolio-add>
-          </a> -->
           <a class="nav-link">
             <i *ngIf="!enabledPortfolioForm" (click)="onAddPortfolio()" style="cursor: pointer;" class="material-icons">add</i>
             <app-portfolio-add *ngIf="enabledPortfolioForm"></app-portfolio-add>

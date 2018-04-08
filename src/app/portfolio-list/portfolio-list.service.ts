@@ -28,7 +28,6 @@ export class PortfolioListService {
   }
 
   addPortfolio(name: string) {
-    // name = "portfolio/" + name;
     this.portfolios.push(new Portfolio(name));
     this.portfoliosChanged.next(this.portfolios.slice());
 
@@ -36,8 +35,8 @@ export class PortfolioListService {
   }
 
   deletePortfolio(index: number) {
-    // this.portfolios.splice(index, 1);
-    // this.portfoliosChanged.next(this.portfolios.slice());
+    this.portfolios.splice(index, 1);
+    this.portfoliosChanged.next(this.portfolios.slice());
     // return this.http.delete('http://localhost:8090/v2/stocks/' + ticker, ticker)
   }
 
