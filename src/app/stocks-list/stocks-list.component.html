@@ -29,9 +29,11 @@
   </div>
 <br>
 
-<table class="table table-stripped table-bordered">
+<!-- <table class="table table-stripped table-bordered"> -->
+<table class="table table-stripped">
   <thead>
         <tr>
+            <th></th>
             <th>Ticker</th>
             <th>Name</th>
             <th>Sector</th>
@@ -45,6 +47,7 @@
             <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendROE') != -1}" (click)="onSelectTrROE()">t_ROE</th>
             <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendEPS') != -1}" (click)="onSelectTrEPS()">t_EPS</th>
             <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendDebtToEquity') != -1}" (click)="onSelectTrDTE()">t_D/E</th>
+            <th></th>
         </tr>
     </thead>
     <tbody style="font-size: 14px;">
@@ -61,6 +64,11 @@
             <ng-template #tipContentActualEPS><p>{{ stock.actualEPS_3 }} / {{ stock.actualEPS_2 }} / {{ stock.actualEPS_1 }} / {{ stock.actualEPS_0 }}</p></ng-template>
             <ng-template #tipContentDebtToEquity><p>{{ stock.debtToEquity_3 }} / {{ stock.debtToEquity_2 }} / {{ stock.debtToEquity_1 }} / {{ stock.debtToEquity_0 }}</p></ng-template>
 
+            <td>
+              <span placement="top" [ngbTooltip]="tipContentDesc" container="body" style="float:right;" class="material-icons info-icon">
+              info_outline
+              </span>
+            </td>
             <td>{{ stock.ticker }}</td>
             <td><span>{{ stock.name }}</span></td>
             <td placement="top" [ngbTooltip]="tipContentInd" container="body">{{ stock.sector }}</td>
@@ -74,11 +82,6 @@
             <td placement="top" [ngbTooltip]="tipContentROE" container="body">{{ stock.trend_ROE }}</td>
             <td placement="top" [ngbTooltip]="tipContentActualEPS" container="body">{{ stock.trend_EPS }}</td>
             <td placement="top" [ngbTooltip]="tipContentDebtToEquity" container="body">{{ stock.trend_DebtToEquity }}</td>
-            <td>
-              <span placement="top" [ngbTooltip]="tipContentDesc" container="body" style="float:right;" class="material-icons info-icon">
-              info_outline
-              </span>
-            </td>
             <td><i class="material-icons delete-icon" (click)="onDeleteStock(stock.ticker)">delete</i></td>
         </tr>
     </tbody>

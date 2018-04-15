@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { Subject } from 'rxjs/Subject';
 import { Http, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+// import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { Stock } from '../stock.model';
@@ -24,8 +24,8 @@ export class StockListService {
       )
   }
 
-  addStock(ticker: string) {
-    return this.http.post('http://localhost:8090/v2/stocks/' + ticker, ticker)
+  addStock(ticker: string, portfolio: string) {
+    return this.http.post('http://localhost:8090/v2/stocks/' + portfolio + '/' + ticker, ticker)
   }
 
   deleteStock(ticker: string) {

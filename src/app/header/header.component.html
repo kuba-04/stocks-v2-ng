@@ -9,13 +9,13 @@
         <li routerLinkActive="active" class="nav-item"
             #portfolioSelected
             *ngFor="let portfolio of portfolios; let i = index"
-            (click)="onEditPortfolio(portfolio.name)"
-            [ngClass]="{'active': portfolio.name == editedPortfolio }">
-            <a [routerLink]="[portfolio.name]" class="nav-link" >
-              {{ portfolio.name }}
+            (click)="onEditPortfolio(portfolio)"
+            [ngClass]="{'active': portfolio == editedPortfolio }">
+            <a [routerLink]="[portfolio]" class="nav-link" >
+              {{ portfolio }}
               <i
-                [hidden]="activePortfolio !== portfolio.name || portfolio.name == 'main'"
-                (click)="onDeletePortfolio(i, portfolio.name)"
+                [hidden]="activePortfolio !== portfolio || portfolio == 'main'"
+                (click)="onDeletePortfolio(i, portfolio)"
                 style="cursor: pointer; font-size: 10px;"
                 class="material-icons">
                 clear

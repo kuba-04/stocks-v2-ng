@@ -32,7 +32,7 @@ import { PortfolioListService } from './portfolio-list/portfolio-list.service';
     NgbModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [StockListService, PortfolioListService, HeaderComponent],
+  providers: [StockListService, PortfolioListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

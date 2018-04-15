@@ -15,7 +15,7 @@ export class PortfolioAddComponent implements OnInit {
 
   addPortfolio(form: NgForm) {
     this.service.addPortfolio(form.value.portfolio);
-
+    form.reset();
   }
 
 }

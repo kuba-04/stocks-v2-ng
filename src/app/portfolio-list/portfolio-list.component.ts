@@ -9,7 +9,7 @@ import { PortfolioAddComponent } from './portfolio-add/portfolio-add.component';
   styleUrls: ['./portfolio-list.component.css']
 })
 export class PortfolioListComponent implements OnInit {
-  portfolios: Portfolio[];
+  
   private portfolioAddComponent: PortfolioAddComponent;
 
   constructor(private portfolioListService: PortfolioListService) {}
