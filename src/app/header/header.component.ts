@@ -46,10 +46,10 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-    this.subscription = this.portfolioListService.portfoliosChanged
-      .subscribe(
-        (portfolios: string[]) => this.portfolios.push(this.portfolioListService.newPortfolio)
-      );
+    // this.subscription = this.portfolioListService.portfoliosChanged
+    //   .subscribe(
+    //     (portfolios: string[]) => this.portfolios.push(this.portfolioListService.newPortfolio)
+    //   );
   }
 
   onDeletePortfolio(index: number, portfolio: string) {

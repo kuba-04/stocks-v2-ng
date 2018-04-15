@@ -22,7 +22,6 @@ export class StockAddComponent implements OnInit {
 
   onAddTicker(form: NgForm) {
     const tab = this.activatedRoute.snapshot.url.toString();
-    console.log(tab);
     const func = this.stockListService.addStock(form.value.ticker, tab)
       .subscribe(
         (response) => {

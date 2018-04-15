@@ -17,15 +17,28 @@ export class StocksListComponent implements OnInit {
   sortingOrder: SortingOrder;
   selectedSorting: string[] = [];
 
-  constructor(private stockListService: StockListService) { }
+  constructor(private stockListService: StockListService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.sortingOrder = new SortingOrder(SortingOrder.defaultSortOrder);
+    // const tab = this.activatedRoute.snapshot.url.toString();
+    // this.sortingOrder = new SortingOrder(SortingOrder.defaultSortOrder, tab);
+    // this.stockListService.putSortOrder(this.sortingOrder)
+    //   .subscribe(
+    //     (response) => {
+    //       if(response.status === 200) {
+    //           this.retrieveData();
+    //       }
+    //     }
+    //   );
     this.retrieveData();
   }
 
   retrieveData() {
-    this.stockListService.getStocks()
+    const tab = this.activatedRoute.snapshot.url.toString();
+    console.log(tab);
+    this.stockListService.getPortfolioStocks(tab)
       .subscribe(
         (stocks: any[]) => this.stocks = stocks
       );
@@ -43,7 +56,8 @@ export class StocksListComponent implements OnInit {
   }
 
   onSortByAll() {
-    this.stockListService.putSortOrder(new SortingOrder(SortingOrder.defaultSortOrder))
+    const tab = this.activatedRoute.snapshot.url.toString();
+    this.stockListService.putSortOrder(new SortingOrder(SortingOrder.defaultSortOrder, tab))
       .subscribe(
         (response) => {
           if(response.status === 200) {
@@ -54,7 +68,8 @@ export class StocksListComponent implements OnInit {
   }
 
   onSortByCustom() {
-    this.stockListService.putSortOrder(new SortingOrder(this.selectedSorting))
+    const tab = this.activatedRoute.snapshot.url.toString();
+    this.stockListService.putSortOrder(new SortingOrder(this.selectedSorting, tab))
     .subscribe(
       (response) => {
         if(response.status === 200) {

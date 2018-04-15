@@ -24,6 +24,16 @@ export class StockListService {
       )
   }
 
+  getPortfolioStocks(portfolio: string) {
+    return this.http.get('http://localhost:8090/v2/stocks/'+ portfolio)
+      .map(
+        (response: Response) => {
+                    const data = response.json();
+                    return data;
+                }
+      )
+  }
+
   addStock(ticker: string, portfolio: string) {
     return this.http.post('http://localhost:8090/v2/stocks/' + portfolio + '/' + ticker, ticker)
   }
