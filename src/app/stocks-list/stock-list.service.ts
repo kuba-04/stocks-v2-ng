@@ -46,4 +46,6 @@ export class StockListService {
     return this.http.put('http://localhost:8090/v2/sorting-service', sortingOrder)
   }
 
+  // editPortfolio(portfolio: u
+
 }

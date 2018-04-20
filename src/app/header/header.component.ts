@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Portfolio } from '../portfolio.model';
 import { PortfolioListService } from '../portfolio-list/portfolio-list.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { StockListService } from '../stocks-list/stock-list.service';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   activePortfolio: string = "";
 
   constructor(private portfolioListService: PortfolioListService,
+    private stockListService: StockListService,
     private router: Router,
     private route: ActivatedRoute) {}
 
@@ -51,6 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
     //     (portfolios: string[]) => this.portfolios.push(this.portfolioListService.newPortfolio)
     //   );
   }
+
 
   onDeletePortfolio(index: number, portfolio: string) {
     if (confirm("Are you sure you want to delete portfolio: " + portfolio + "?")) {

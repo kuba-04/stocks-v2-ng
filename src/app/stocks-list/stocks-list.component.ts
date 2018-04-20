@@ -1,9 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 
 import { Stock } from '../stock.model';
 import { StockListService } from './stock-list.service';
 import { SortingOrder } from './sorting.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-stocks-list',
@@ -16,29 +17,25 @@ export class StocksListComponent implements OnInit {
   editedStock: string;
   sortingOrder: SortingOrder;
   selectedSorting: string[] = [];
+  routes: Observable<string[]>;
+  tab: string;
 
   constructor(private stockListService: StockListService,
     private activatedRoute: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
-    // const tab = this.activatedRoute.snapshot.url.toString();
-    // this.sortingOrder = new SortingOrder(SortingOrder.defaultSortOrder, tab);
-    // this.stockListService.putSortOrder(this.sortingOrder)
-    //   .subscribe(
-    //     (response) => {
-    //       if(response.status === 200) {
-    //           this.retrieveData();
-    //       }
-    //     }
-    //   );
-    this.retrieveData();
+    this.activatedRoute.paramMap.subscribe(
+      (paramMap: ParamMap) => {
+        this.tab = paramMap.get('id');
+        this.retrieveData();
+      }
+    )
   }
 
   retrieveData() {
-    const tab = this.activatedRoute.snapshot.url.toString();
-    console.log(tab);
-    this.stockListService.getPortfolioStocks(tab)
+    this.tab = this.activatedRoute.snapshot.url.toString();
+    this.stockListService.getPortfolioStocks(this.tab)
       .subscribe(
         (stocks: any[]) => this.stocks = stocks
       );

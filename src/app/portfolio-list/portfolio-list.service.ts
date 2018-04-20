@@ -5,16 +5,16 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/Rx';
 
 import { Portfolio } from '../portfolio.model';
+import { StockListService } from '../stocks-list/stock-list.service';
 
 
 @Injectable()
 export class PortfolioListService {
-
   portfolios: string[] = [];
   newPortfolio: string;
   portfoliosChanged = new Subject<string[]>();
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private stockListService: StockListService) {}
 
   getPortfolios() {
     return this.http.get('http://localhost:8090/v2/portfolios')
