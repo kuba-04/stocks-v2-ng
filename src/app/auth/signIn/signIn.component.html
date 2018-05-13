@@ -1,0 +1,30 @@
+<!-- <div>
+  Signin
+</div> -->
+
+<div class="container">
+ <h1>Login Using</h1>
+
+ <form action="http://localhost:3000/connect/google" method="POST" style="display: inline">
+   <input type="hidden" name="scope" value="profile email" />
+   <button type="submit" class="btn btn-danger">
+   Google <span class="fa fa-google-plus"></span>
+   </button>
+ </form>
+
+ <form action="http://localhost:3000/connect/facebook" method="POST" style="display: inline">
+   <input type="hidden" name="scope" value="public_profile,email" />
+   <button type="submit" class="btn btn-primary">
+   Facebook <span class="fa fa-facebook"></span>
+   </button>
+ </form>
+
+ <form action="http://localhost:3000/connect/linkedin" method="POST" style="display: inline">
+   <input type="hidden" name="scope"
+   value="r_basicprofile,r_emailaddress" />
+   <button type="submit" class="btn btn-primary">
+   LinkedIn <span class="fa fa-linkedin"></span>
+   </button>
+ </form>
+
+</div>

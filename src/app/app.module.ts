@@ -14,6 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { PortfolioAddComponent } from './portfolio-list/portfolio-add/portfolio-add.component';
 import { PortfolioListComponent } from './portfolio-list/portfolio-list.component';
 import { PortfolioListService } from './portfolio-list/portfolio-list.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SignInComponent } from './auth/signIn/signIn.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { PortfolioListService } from './portfolio-list/portfolio-list.service';
     StockAddComponent,
     HeaderComponent,
     PortfolioListComponent,
-    PortfolioAddComponent
+    PortfolioAddComponent,
+    SignupComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,

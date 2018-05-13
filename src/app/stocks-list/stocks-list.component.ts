@@ -156,7 +156,6 @@ export class StocksListComponent implements OnInit {
 
   onEditStock(ticker: string) {
     this.editedStock = ticker;
-    console.log(ticker);
     if (this.editMode !== true) {
       this.editMode = true;
     }

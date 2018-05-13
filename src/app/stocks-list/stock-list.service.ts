@@ -15,7 +15,7 @@ export class StockListService {
   constructor(private http: Http) {}
 
   getStocks() {
-    return this.http.get('http://localhost:8090/v2/stocks/')
+    return this.http.get('http://localhost:3000/v2/stocks/')
       .map(
         (response: Response) => {
                     const data = response.json();
@@ -25,7 +25,7 @@ export class StockListService {
   }
 
   getPortfolioStocks(portfolio: string) {
-    return this.http.get('http://localhost:8090/v2/stocks/'+ portfolio)
+    return this.http.get('http://localhost:3000/v2/stocks/'+ portfolio)
       .map(
         (response: Response) => {
                     const data = response.json();
@@ -35,17 +35,15 @@ export class StockListService {
   }
 
   addStock(ticker: string, portfolio: string) {
-    return this.http.post('http://localhost:8090/v2/stocks/' + portfolio + '/' + ticker, ticker)
+    return this.http.post('http://localhost:3000/v2/stocks/' + portfolio + '/' + ticker, ticker)
   }
 
   deleteStock(ticker: string) {
-    return this.http.delete('http://localhost:8090/v2/stocks/' + ticker, ticker)
+    return this.http.delete('http://localhost:3000/v2/stocks/' + ticker, ticker)
   }
 
   putSortOrder(sortingOrder: SortingOrder) {
-    return this.http.put('http://localhost:8090/v2/sorting-service', sortingOrder)
+    return this.http.put('http://localhost:3000/v2/sorting-service', sortingOrder)
   }
-
-  // editPortfolio(portfolio: u
 
 }

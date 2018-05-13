@@ -17,7 +17,8 @@ export class PortfolioListService {
   constructor(private http: Http, private stockListService: StockListService) {}
 
   getPortfolios() {
-    return this.http.get('http://localhost:8090/v2/portfolios')
+    // return this.http.get('http://localhost:8090/v2/portfolios')
+    return this.http.get('http://localhost:3000/v2/portfolios')
       .map(
         (response: Response) => {
                     const data = response.json();
@@ -33,7 +34,8 @@ export class PortfolioListService {
   }
 
   deletePortfolio(index: number, portfolio: string) {
-    return this.http.delete('http://localhost:8090/v2/portfolios/' + portfolio, portfolio)
+    return this.http.delete('http://localhost:3000/v2/portfolios/' + portfolio, portfolio)
   }
+
 
 }

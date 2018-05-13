@@ -25,12 +25,19 @@ export class StockAddComponent implements OnInit {
     const func = this.stockListService.addStock(form.value.ticker, tab)
       .subscribe(
         (response) => {
-          if (response.ok) {
-            console.log("STATUS IS: " + response.status);
+          if (response.status === 200) {
             this.stocksListComponent.retrieveData();
+          } else {
+            console.log(response);
           }
         },
-        (error) => console.log(error)
+        (error) => {
+          if (error.status ===  404) {
+            alert("Ticker not found!");
+          } else {
+            console.log(error);
+          }
+        }
       );
       form.reset();
   }

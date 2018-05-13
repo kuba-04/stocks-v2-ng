@@ -3,11 +3,17 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { StocksListComponent } from "./stocks-list/stocks-list.component";
 import { PortfolioListComponent } from "./portfolio-list/portfolio-list.component";
+import { SignupComponent } from "./auth/signup/signup.component";
+import { SignInComponent } from "./auth/signIn/signIn.component";
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/main', pathMatch: 'full' },
-    { path: 'main', component: StocksListComponent },
-    { path: ':id', component: PortfolioListComponent }
+    { path: '', redirectTo: 'portfolio/main', pathMatch: 'full' },
+    { path: 'portfolio', children: [
+        { path: '', component: PortfolioListComponent },
+        { path: 'main', component: PortfolioListComponent },
+        { path: ':id', component: PortfolioListComponent },
+    ]},
+    { path: 'user/signIn', component: SignInComponent }
 ]
 
 @NgModule({

@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
             (response) => {
               if(response.status === 200) {
                   this.portfolios.splice(index, 1);
-                  this.router.navigate(['main'], { relativeTo: this.route });
+                  this.router.navigate(['portfolio/main'], { relativeTo: this.route });
               }
             }
           );

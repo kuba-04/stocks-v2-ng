@@ -6,12 +6,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav nav-tabs">
-        <li routerLinkActive="active" class="nav-item"
+        <!-- <li routerLinkActive="active" class="nav-item"
             #portfolioSelected
             *ngFor="let portfolio of portfolios; let i = index"
             (click)="onEditPortfolio(portfolio)"
-            [ngClass]="{'active': portfolio == editedPortfolio }">
-            <a [routerLink]="[portfolio]" class="nav-link" >
+            [ngClass]="{'active': portfolio == editedPortfolio }"
+            > -->
+            <li routerLinkActive="active" class="nav-item"
+                *ngFor="let portfolio of portfolios; let i = index"
+                (click)="onEditPortfolio(portfolio)"
+                >
+            <a [routerLink]="['/portfolio', portfolio]" class="nav-link" >
               {{ portfolio }}
               <i
                 [hidden]="activePortfolio !== portfolio || portfolio == 'main'"
@@ -30,5 +35,8 @@
         </li>
       </ul>
     </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a routerLink="user/signIn">Login</a></li>
+    </ul>
   </div>
 </nav>
