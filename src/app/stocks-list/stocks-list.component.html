@@ -51,7 +51,6 @@
     <tbody style="font-size: 14px;">
           <tr
             *ngFor="let stock of stocks; let i = index"
-            (click)="onEditStock(stock.ticker)"
             [ngClass]="{'active': stock.ticker == editedStock }"
             class="stock-row"
             height="70px"

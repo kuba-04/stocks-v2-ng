@@ -14,7 +14,6 @@ import { Observable } from 'rxjs/Observable';
 export class StocksListComponent implements OnInit {
   stocks: Stock[];
   editMode = false;
-  editedStock: string;
   sortingOrder: SortingOrder;
   selectedSorting: string[] = [];
   routes: Observable<string[]>;
@@ -153,18 +152,9 @@ export class StocksListComponent implements OnInit {
       this.selectedSorting = [];
   }
 
-
-  onEditStock(ticker: string) {
-    this.editedStock = ticker;
-    if (this.editMode !== true) {
-      this.editMode = true;
-    }
-  }
-
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
     this.selectedSorting = [];
     this.editMode = false;
-    this.editedStock = "";
   }
 
 }

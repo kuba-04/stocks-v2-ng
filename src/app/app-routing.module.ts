@@ -13,6 +13,7 @@ const appRoutes: Routes = [
         { path: 'main', component: PortfolioListComponent },
         { path: ':id', component: PortfolioListComponent },
     ]},
+    { path: 'user/signup', component: SignupComponent },
     { path: 'user/signIn', component: SignInComponent }
 ]
 

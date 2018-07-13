@@ -4,6 +4,8 @@ import { Portfolio } from '../portfolio.model';
 import { PortfolioListService } from '../portfolio-list/portfolio-list.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockListService } from '../stocks-list/stock-list.service';
+import { AuthenticationService } from '../auth/authentication.service';
+import { SignInComponent } from '../auth/signIn/signIn.component';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private portfolioListService: PortfolioListService,
     private stockListService: StockListService,
     private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.retrievePortfolios();
@@ -48,12 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-    // this.subscription = this.portfolioListService.portfoliosChanged
-    //   .subscribe(
-    //     (portfolios: string[]) => this.portfolios.push(this.portfolioListService.newPortfolio)
-    //   );
   }
-
 
   onDeletePortfolio(index: number, portfolio: string) {
     if (confirm("Are you sure you want to delete portfolio: " + portfolio + "?")) {
@@ -75,6 +73,12 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
     this.enabledPortfolioForm = false;
+  }
+
+  onLogout() {
+        this.authenticationService.logout();
+        this.router.navigate(['portfolio/main'], { relativeTo: this.route });
+        this.stockListService.getPortfolioStocks("main");
   }
 
 }

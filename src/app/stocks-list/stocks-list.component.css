@@ -2,26 +2,29 @@
   cursor: pointer;
 }
 
-.stock-row {
-  cursor: pointer;
+.th-toCalc:hover {
+  background-color: #EFE4E4;
 }
 
 .stock-row:hover, .active {
   background-color: #DBD1D1;
 }
 
-.selected-ratio {
+.selected-ratio, .selected-ratio:hover {
   background-color: #DBD1D1;
 }
 
 .delete-icon, .info-icon {
   color: grey;
+  cursor: pointer;
 }
 
 .info-icon:hover {
   color: black;
+  /*cursor: pointer;*/
 }
 
 .delete-icon:hover {
   color: red;
+  /*cursor: pointer;*/
 }

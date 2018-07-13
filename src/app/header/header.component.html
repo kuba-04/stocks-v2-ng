@@ -1,17 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a routerLink="/" class="navbar-brand">Stocks app</a>
+    <!-- <a class="navbar-brand">Stocks app</a> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav nav-tabs">
-        <!-- <li routerLinkActive="active" class="nav-item"
-            #portfolioSelected
-            *ngFor="let portfolio of portfolios; let i = index"
-            (click)="onEditPortfolio(portfolio)"
-            [ngClass]="{'active': portfolio == editedPortfolio }"
-            > -->
             <li routerLinkActive="active" class="nav-item"
                 *ngFor="let portfolio of portfolios; let i = index"
                 (click)="onEditPortfolio(portfolio)"
@@ -33,10 +28,14 @@
             <app-portfolio-add *ngIf="enabledPortfolioForm"></app-portfolio-add>
           </a>
         </li>
+        retrive data from db not API
       </ul>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a routerLink="user/signIn">Login</a></li>
+      <ng-template [ngIf]="authenticationService.getToken() == ''">
+        <li style="padding-right: 10px;"><a routerLink="user/signIn">Login</a></li>
+      </ng-template>
+      <li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authenticationService.getToken() != ''">Logout</a></li>
     </ul>
   </div>
 </nav>

@@ -12,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class StockAddComponent implements OnInit {
 
+  loading = false;
+
   constructor(private stockListService: StockListService,
               private stocksListComponent: StocksListComponent,
               private activatedRoute: ActivatedRoute,
@@ -21,12 +23,17 @@ export class StockAddComponent implements OnInit {
   }
 
   onAddTicker(form: NgForm) {
+    this.loading = true;
     const tab = this.activatedRoute.snapshot.url.toString();
     const func = this.stockListService.addStock(form.value.ticker, tab)
       .subscribe(
         (response) => {
           if (response.status === 200) {
             this.stocksListComponent.retrieveData();
+            this.loading = false;
+          } else if (response.status ===  204) {
+            alert("Sorry, we are not able to fetch data from the external service."
+              + " Please try again later.")
           } else {
             console.log(response);
           }
@@ -36,6 +43,7 @@ export class StockAddComponent implements OnInit {
             alert("Ticker not found!");
           } else {
             console.log(error);
+            this.loading = false;
           }
         }
       );

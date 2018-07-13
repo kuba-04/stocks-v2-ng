@@ -16,6 +16,7 @@ import { PortfolioListComponent } from './portfolio-list/portfolio-list.componen
 import { PortfolioListService } from './portfolio-list/portfolio-list.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SignInComponent } from './auth/signIn/signIn.component';
+import { AuthenticationService } from './auth/authentication.service';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { SignInComponent } from './auth/signIn/signIn.component';
     NgbModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [StockListService, PortfolioListService],
+  providers: [StockListService, PortfolioListService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
