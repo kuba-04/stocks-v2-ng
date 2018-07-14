@@ -5,7 +5,7 @@ import { PortfolioListService } from '../portfolio-list/portfolio-list.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockListService } from '../stocks-list/stock-list.service';
 import { AuthenticationService } from '../auth/authentication.service';
-import { SignInComponent } from '../auth/signIn/signIn.component';
+import { LoginComponent } from '../auth/login/login.component';
 
 @Component({
   selector: 'app-header',

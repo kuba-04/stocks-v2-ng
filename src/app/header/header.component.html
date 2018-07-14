@@ -28,12 +28,12 @@
             <app-portfolio-add *ngIf="enabledPortfolioForm"></app-portfolio-add>
           </a>
         </li>
-        retrive data from db not API
+        <!-- retrive data from db not API -->
       </ul>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <ng-template [ngIf]="authenticationService.getToken() == ''">
-        <li style="padding-right: 10px;"><a routerLink="user/signIn">Login</a></li>
+        <li style="padding-right: 10px;"><a routerLink="user/login">Login</a></li>
       </ng-template>
       <li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authenticationService.getToken() != ''">Logout</a></li>
     </ul>

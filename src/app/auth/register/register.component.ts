@@ -1,41 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signIn.component.html',
-  styleUrls: ['./signIn.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class SignInComponent implements OnInit {
-  model: any = {};
+export class RegisterComponent implements OnInit {
   loading = false;
   error = '';
 
   constructor(private router: Router,
-    private authenticationService: AuthenticationService) {
-      // this.active = true;
-      console.log(router.config.values);
-  }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    // reset login status
-    this.authenticationService.logout();
   }
 
-  onLogin(form: NgForm) {
+  onRegister(form: NgForm) {
     this.loading = true;
-        this.authenticationService.login(form.form.controls.username.value,
-                                         form.form.controls.password.value)
+    this.authenticationService.register(form.form.controls.username.value,
+                                        form.form.controls.email.value,
+                                        form.form.controls.password.value,
+                                        form.form.controls.matchingPassword.value)
             .subscribe(result => {
                 if (result === true) {
                 // if (result.status === 200) {
                     // login successful
                     this.router.navigate(['portfolio/main']);
                 } else {
-                    // login failed
-                    this.error = 'Username or password is incorrect';
                     this.loading = false;
                 }
             }, error => {
@@ -43,5 +37,4 @@ export class SignInComponent implements OnInit {
               this.error = error;
             });
   }
-
 }

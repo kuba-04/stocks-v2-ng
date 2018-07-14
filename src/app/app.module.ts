@@ -14,9 +14,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { PortfolioAddComponent } from './portfolio-list/portfolio-add/portfolio-add.component';
 import { PortfolioListComponent } from './portfolio-list/portfolio-list.component';
 import { PortfolioListService } from './portfolio-list/portfolio-list.service';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SignInComponent } from './auth/signIn/signIn.component';
 import { AuthenticationService } from './auth/authentication.service';
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
 
 
 @NgModule({
@@ -27,8 +27,8 @@ import { AuthenticationService } from './auth/authentication.service';
     HeaderComponent,
     PortfolioListComponent,
     PortfolioAddComponent,
-    SignupComponent,
-    SignInComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
