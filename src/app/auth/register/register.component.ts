@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
                 if (result === true) {
                 // if (result.status === 200) {
                     // login successful
-                    this.router.navigate(['portfolio/main']);
+                    this.router.navigate(['user/register-success']);
                 } else {
                     this.loading = false;
                 }

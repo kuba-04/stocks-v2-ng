@@ -17,6 +17,7 @@ import { PortfolioListService } from './portfolio-list/portfolio-list.service';
 import { AuthenticationService } from './auth/authentication.service';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
+import { RegisterSuccessComponent } from './auth/register/register-success/register-success.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { LoginComponent } from './auth/login/login.component';
     PortfolioListComponent,
     PortfolioAddComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterSuccessComponent
   ],
   imports: [
     BrowserModule,

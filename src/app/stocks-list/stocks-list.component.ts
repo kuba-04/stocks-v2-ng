@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 
 import { Stock } from '../stock.model';
@@ -24,6 +24,7 @@ export class StocksListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    // console.log('StocksListComponent ngOnInit()')
     this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
         this.tab = paramMap.get('id');

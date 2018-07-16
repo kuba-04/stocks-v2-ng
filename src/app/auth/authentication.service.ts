@@ -44,7 +44,6 @@ export class AuthenticationService {
         // clear token remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.token = null;
-        // console.log(localStorage.getItem('currentUser'));
     }
 
     // isAuthenticated() {

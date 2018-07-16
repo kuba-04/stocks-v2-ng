@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
 
   onLogout() {
         this.authenticationService.logout();
-        this.router.navigate(['portfolio/main'], { relativeTo: this.route });
+        this.router.navigate(['/'], { relativeTo: this.route });
         this.stockListService.getPortfolioStocks("main");
   }
 

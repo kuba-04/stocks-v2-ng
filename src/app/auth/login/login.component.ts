@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { StockListService } from '../../stocks-list/stock-list.service';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +15,8 @@ export class LoginComponent implements OnInit {
   error = '';
 
   constructor(private router: Router,
-    private authenticationService: AuthenticationService) {
-      // this.active = true;
-      // console.log(router.config.values);
+    private authenticationService: AuthenticationService,
+    private stockListService: StockListService) {
   }
 
   ngOnInit() {
@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
                 if (result === true) {
                 // if (result.status === 200) {
                     // login successful
-                    this.router.navigate(['portfolio/main']);
+                    // this.stockListService.getPortfolioStocks('main').subscribe();
+                    this.router.navigate(['/portfolio/main']);
                 } else {
                     // login failed
                     this.error = 'Username or password is incorrect';

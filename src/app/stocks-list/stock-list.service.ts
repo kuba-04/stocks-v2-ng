@@ -40,6 +40,9 @@ export class StockListService {
   // }
 
   getPortfolioStocks(portfolio: string) {
+    console.log("getPortfolioStocks triggered")
+    console.log("getPortfolioStocks token: " + this.authenticationService.getToken())
+
     return this.http
       .get(this.stocksURL + portfolio, {headers: this.headers})
       .map(
@@ -52,12 +55,13 @@ export class StockListService {
 
   addStock(ticker: string, portfolio: string) {
     return this.http
-      .post(this.stocksURL + portfolio + '/' + ticker, ticker)
+      .post(this.stocksURL + portfolio + '/' + ticker, ticker, {headers: this.headers})
   }
 
   deleteStock(ticker: string) {
     return this.http
-      .delete(this.stocksURL + ticker, ticker)
+      // .delete(this.stocksURL + ticker, ticker)
+      .delete(this.stocksURL + ticker, {headers: this.headers})
   }
 
   putSortOrder(sortingOrder: SortingOrder) {
