@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
-import { StockListService } from '../../stocks-list/stock-list.service';
+import { PortfolioListService } from '../../portfolio-list/portfolio-list.service';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +10,16 @@ import { StockListService } from '../../stocks-list/stock-list.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  // model: any = {};
+  portfolios: string[] = ["main"];
   loading = false;
   error = '';
 
   constructor(private router: Router,
     private authenticationService: AuthenticationService,
-    private stockListService: StockListService) {
+    private portfolioListService: PortfolioListService) {
   }
 
   ngOnInit() {
-    // reset login status
     this.authenticationService.logout();
   }
 
@@ -30,18 +29,24 @@ export class LoginComponent implements OnInit {
                                          form.form.controls.password.value)
             .subscribe(result => {
                 if (result === true) {
-                // if (result.status === 200) {
-                    // login successful
-                    // this.stockListService.getPortfolioStocks('main').subscribe();
+                    console.log('logged in successfully!')
                     this.router.navigate(['/portfolio/main']);
+                    // this.portfolioListService.retrievePortfolios();
+                    // this.portfolioListService.getPortfolios().subscribe(
+                    //     (portfolios: string[]) => portfolios
+                    //       .forEach((portfolio) => {
+                    //         if (portfolio != "main") this.portfolios.push(portfolio)
+                    //       }
+                    //     )
+                    // )
+                    // this.stockListService.getPortfolioStocks('main').subscribe();  this is repeated
                 } else {
-                    // login failed
                     this.error = 'Username or password is incorrect';
                     this.loading = false;
                 }
             }, error => {
-              this.loading = false;
               this.error = error;
+              this.loading = false;
             });
   }
 }

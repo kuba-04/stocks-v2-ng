@@ -24,12 +24,11 @@ export class StocksListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    // console.log('StocksListComponent ngOnInit()')
     this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
         this.tab = paramMap.get('id');
         this.retrieveData();
-      }
+      }, error => console.log('unauthorized')
     )
   }
 
@@ -37,19 +36,19 @@ export class StocksListComponent implements OnInit {
     this.tab = this.activatedRoute.snapshot.url.toString();
     this.stockListService.getPortfolioStocks(this.tab)
       .subscribe(
-        (stocks: any[]) => this.stocks = stocks
+        (stocks: any[]) => this.stocks = stocks, error => console.log('unauthorized')
       );
   }
 
   onDeleteStock(ticker: string) {
     this.stockListService.deleteStock(ticker)
-          .subscribe(
-            (response) => {
-              if(response.status === 200) {
-                  this.retrieveData();
-              }
-            }
-          );
+      .subscribe(
+        (response) => {
+          if(response.status === 200) {
+              this.retrieveData();
+          }
+        }
+      );
   }
 
   onSortByAll() {
@@ -60,7 +59,7 @@ export class StocksListComponent implements OnInit {
           if(response.status === 200) {
               this.retrieveData();
           }
-        }
+        }, error => console.log('unauthorized')
       );
   }
 

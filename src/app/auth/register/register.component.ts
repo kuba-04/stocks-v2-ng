@@ -26,8 +26,6 @@ export class RegisterComponent implements OnInit {
                                         form.form.controls.matchingPassword.value)
             .subscribe(result => {
                 if (result === true) {
-                // if (result.status === 200) {
-                    // login successful
                     this.router.navigate(['user/register-success']);
                 } else {
                     this.loading = false;

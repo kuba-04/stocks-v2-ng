@@ -24,13 +24,15 @@ export class PortfolioListService {
               private authenticationService: AuthenticationService) {}
 
   getPortfolios() {
-    return this.http.get('http://localhost:8090/v2/portfolios', {headers: this.headers})
+    // return this.http.get('http://localhost:8090/v2/portfolios', {headers: this.headers})
+    return this.http.get('http://localhost:8090/v2/portfolios', {headers: this.authenticationService.getAuthHeaders()})
       .map(
         (response: Response) => {
-                    const data = response.json();
-                    return data;
-                }
-      )
+          if (response.ok) {
+            const data = response.json();
+            return data;
+          }
+        })
   }
 
   addPortfolio(name: string) {

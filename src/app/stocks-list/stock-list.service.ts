@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-// import { Subject } from 'rxjs/Subject';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-// import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { Stock } from '../stock.model';
 import { SortingOrder } from './sorting.model';
 import { AuthenticationService } from '../auth/authentication.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class StockListService {
@@ -28,45 +27,42 @@ export class StockListService {
       .get(this.stocksURL, {headers: this.headers})
       .map(
         (response: Response) => {
-                    const data = response.json();
-                    return data;
-                }
+            const data = response.json();
+            return data;
+        }
       )
   }
 
-  // private handleError(error: any): Promise<any> {
-  //  console.error('An error occurred: ', error); // for demo only
-  //  return Promise.reject(error.message || error);
-  // }
-
   getPortfolioStocks(portfolio: string) {
-    console.log("getPortfolioStocks triggered")
-    console.log("getPortfolioStocks token: " + this.authenticationService.getToken())
-
     return this.http
-      .get(this.stocksURL + portfolio, {headers: this.headers})
+      .get(this.stocksURL + portfolio, {headers: this.authenticationService.getAuthHeaders()})
       .map(
         (response: Response) => {
-                    const data = response.json();
-                    return data;
-                }
-      )
+          if (response.ok) {
+            const data = response.json();
+            return data;
+          } else {
+            console.log("you don't have access to see this")
+          }
+        })
   }
 
   addStock(ticker: string, portfolio: string) {
     return this.http
-      .post(this.stocksURL + portfolio + '/' + ticker, ticker, {headers: this.headers})
+      // .post(this.stocksURL + portfolio + '/' + ticker, ticker, {headers: this.headers})
+      .post(this.stocksURL + portfolio + '/' + ticker, ticker, {headers: this.authenticationService.getAuthHeaders()})
   }
 
   deleteStock(ticker: string) {
     return this.http
-      // .delete(this.stocksURL + ticker, ticker)
-      .delete(this.stocksURL + ticker, {headers: this.headers})
+      // .delete(this.stocksURL + ticker, {headers: this.headers})
+      .delete(this.stocksURL + ticker, {headers: this.authenticationService.getAuthHeaders()})
   }
 
   putSortOrder(sortingOrder: SortingOrder) {
     return this.http
-      .put(this.sortingURL, sortingOrder, {headers: this.headers})
+      // .put(this.sortingURL, sortingOrder, {headers: this.headers})
+      .put(this.sortingURL, sortingOrder, {headers: this.authenticationService.getAuthHeaders()})
   }
 
 }

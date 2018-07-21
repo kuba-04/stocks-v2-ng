@@ -19,7 +19,6 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterSuccessComponent } from './auth/register/register-success/register-success.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

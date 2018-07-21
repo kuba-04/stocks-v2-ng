@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
             .forEach((portfolio) => {
               if (portfolio != "main") this.portfolios.push(portfolio)
             }
-          )
+          ), error => console.log('unauthorized')
       )
   }
 
@@ -76,9 +76,13 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onLogout() {
-        this.authenticationService.logout();
-        this.router.navigate(['/'], { relativeTo: this.route });
-        this.stockListService.getPortfolioStocks("main");
+    this.authenticationService.logout().subscribe(result => {
+        if (result == true) {
+          this.router.navigate(['user/login']);
+          // this.router.navigate(['/'], { relativeTo: this.route });
+          // this.stockListService.getPortfolioStocks("main").subscribe();
+        }
+    });
   }
 
 }
