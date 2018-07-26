@@ -9,29 +9,23 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class StockListService {
-
   private stocksURL = 'http://localhost:8090/v2/stocks/';
   private sortingURL = 'http://localhost:8090/v2/sorting-service/';
   private stocks: Stock[] = [];
 
-  private headers = new Headers({
-     'Content-Type': 'application/json',
-     'Authorization': 'Bearer ' + this.authenticationService.getToken()
-     });
-
   constructor(private http: Http,
               private authenticationService: AuthenticationService) {}
 
-  getStocks() {
-    return this.http
-      .get(this.stocksURL, {headers: this.headers})
-      .map(
-        (response: Response) => {
-            const data = response.json();
-            return data;
-        }
-      )
-  }
+  // getStocks() {
+  //   return this.http
+  //     .get(this.stocksURL, {headers: this.authenticationService.getAuthHeaders()})
+  //     .map(
+  //       (response: Response) => {
+  //           const data = response.json();
+  //           return data;
+  //       }
+  //     )
+  // }
 
   getPortfolioStocks(portfolio: string) {
     return this.http
@@ -49,20 +43,16 @@ export class StockListService {
 
   addStock(ticker: string, portfolio: string) {
     return this.http
-      // .post(this.stocksURL + portfolio + '/' + ticker, ticker, {headers: this.headers})
       .post(this.stocksURL + portfolio + '/' + ticker, ticker, {headers: this.authenticationService.getAuthHeaders()})
   }
 
   deleteStock(ticker: string) {
     return this.http
-      // .delete(this.stocksURL + ticker, {headers: this.headers})
       .delete(this.stocksURL + ticker, {headers: this.authenticationService.getAuthHeaders()})
   }
 
   putSortOrder(sortingOrder: SortingOrder) {
     return this.http
-      // .put(this.sortingURL, sortingOrder, {headers: this.headers})
       .put(this.sortingURL, sortingOrder, {headers: this.authenticationService.getAuthHeaders()})
   }
-
 }

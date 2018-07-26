@@ -33,7 +33,6 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        // return this.http.post(this.authUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})
         return this.http
           .post(this.authUrl,
                 JSON.stringify({username: username, password: password}),
@@ -81,7 +80,6 @@ export class AuthenticationService {
                    password: password,
                    matchingPassword: matchingPassword
                   }),
-            // {headers: this.headers})
             {headers: this.getAuthHeaders()})
 
             .map((response: Response) => {

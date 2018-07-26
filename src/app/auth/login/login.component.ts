@@ -31,15 +31,6 @@ export class LoginComponent implements OnInit {
                 if (result === true) {
                     console.log('logged in successfully!')
                     this.router.navigate(['/portfolio/main']);
-                    // this.portfolioListService.retrievePortfolios();
-                    // this.portfolioListService.getPortfolios().subscribe(
-                    //     (portfolios: string[]) => portfolios
-                    //       .forEach((portfolio) => {
-                    //         if (portfolio != "main") this.portfolios.push(portfolio)
-                    //       }
-                    //     )
-                    // )
-                    // this.stockListService.getPortfolioStocks('main').subscribe();  this is repeated
                 } else {
                     this.error = 'Username or password is incorrect';
                     this.loading = false;

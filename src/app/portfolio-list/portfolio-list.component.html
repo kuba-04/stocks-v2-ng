@@ -1,1 +1,33 @@
-<app-stocks-list></app-stocks-list>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="row">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav nav-tabs">
+          <li routerLinkActive="active" class="nav-item"
+              *ngFor="let portfolio of portfolios; let i = index"
+              (click)="onEditPortfolio(portfolio)">
+            <a [routerLink]="['/portfolio', portfolio]" class="nav-link" >
+              {{ portfolio }}
+              <i
+                [hidden]="activePortfolio !== portfolio || portfolio == 'main'"
+                (click)="onDeletePortfolio(i, portfolio)"
+                style="cursor: pointer; font-size: 10px;"
+                class="material-icons">
+                clear
+              </i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <i *ngIf="!enabledPortfolioForm" (click)="onAddPortfolio()" style="cursor: pointer;" class="material-icons">add</i>
+              <app-portfolio-add *ngIf="enabledPortfolioForm"></app-portfolio-add>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="row">
+    <app-stocks-list></app-stocks-list>
+  </div>
+</div>

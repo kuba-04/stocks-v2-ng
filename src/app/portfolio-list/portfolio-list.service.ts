@@ -14,17 +14,12 @@ export class PortfolioListService {
   portfolios: string[] = [];
   newPortfolio: string;
   portfoliosChanged = new Subject<string[]>();
-  private headers = new Headers({
-     'Content-Type': 'application/json',
-     'Authorization': 'Bearer ' + this.authenticationService.getToken()
-     });
 
   constructor(private http: Http,
               private stockListService: StockListService,
               private authenticationService: AuthenticationService) {}
 
   getPortfolios() {
-    // return this.http.get('http://localhost:8090/v2/portfolios', {headers: this.headers})
     return this.http.get('http://localhost:8090/v2/portfolios', {headers: this.authenticationService.getAuthHeaders()})
       .map(
         (response: Response) => {
@@ -33,6 +28,13 @@ export class PortfolioListService {
             return data;
           }
         })
+  }
+
+  refreshPortfolios() {
+    // if (this.authenticationService.getToken() == null) {
+    //   this.portfolios = ['main'];
+    // }
+    this.portfoliosChanged.next(this.portfolios.slice());
   }
 
   addPortfolio(name: string) {
