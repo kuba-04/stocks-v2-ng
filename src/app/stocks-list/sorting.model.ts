@@ -4,6 +4,6 @@ export class SortingOrder {
    "returnOnAssets", "dividendYield", "trendROE", "trendEPS", "trendDebtToEquity"];
   public customSortOrder: string[];
 
-  constructor(public sorting: string[], public portfolio: string) {}
+  constructor(public owner: string, public sorting: string[], public portfolio: string) {}
 
 }

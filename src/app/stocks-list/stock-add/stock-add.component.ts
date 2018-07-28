@@ -1,25 +1,40 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StocksListComponent } from '../stocks-list.component';
 import { NgForm } from '@angular/forms';
 import { Stock } from '../../stock.model';
 import { StockListService } from '../stock-list.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../../auth/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stock-add',
   templateUrl: './stock-add.component.html',
   styleUrls: ['./stock-add.component.css']
 })
-export class StockAddComponent implements OnInit {
-
+export class StockAddComponent implements OnInit, OnDestroy {
   loading = false;
+  buttonsEnabled = false;
+  authSubscription: Subscription;
 
   constructor(private stockListService: StockListService,
               private stocksListComponent: StocksListComponent,
+              private authenticationService: AuthenticationService,
               private activatedRoute: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit() {
+    this.authSubscription = this.authenticationService.updated
+        .subscribe(buttonsEnabled => this.buttonsEnabled = buttonsEnabled);
+    if (this.authenticationService.getToken() !== null || this.authenticationService.getToken().length > 0) {
+        this.buttonsEnabled = true;
+    }
+  }
+
+  ngOnDestroy() {}
+
+  isPanelEnabled() {
+    this.authenticationService.getToken() !== null;
   }
 
   onAddTicker(form: NgForm) {

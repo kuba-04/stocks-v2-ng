@@ -3,18 +3,10 @@
     <app-stock-add></app-stock-add>
     <div class="col-sm-4">
       <button
-        (click)="clearSelection()"
-        class="btn"
-        type="button"
-        [disabled]="selectedSorting.length === 0"
-        >
-        Clear
-      </button>
-      <button
         (click)="onSortByCustom()"
         class="btn"
         type="button"
-        [disabled]="selectedSorting.length === 0"
+        [disabled]="selectedSorting.length === 0 || !buttonsEnabled"
         >
         Sort
       </button>
@@ -22,31 +14,40 @@
         (click)="onSortByAll()"
         class="btn"
         type="button"
+        [disabled]="!buttonsEnabled"
         >
         Sort By All
+      </button>
+      <button
+        (click)="clearSelection()"
+        class="btn"
+        type="button"
+        [disabled]="selectedSorting.length === 0 || !buttonsEnabled"
+        >
+        Clear
       </button>
     </div>
   </div>
 <br>
 <table class="table table-stripped">
   <thead>
-        <tr>
-            <th></th>
-            <th>Ticker</th>
-            <th>Name</th>
-            <th>Sector</th>
-            <th>Price</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('priceToBook') != -1}" (click)="onSelectPB()">P/B</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('latestEPS') != -1}" (click)="onSelectEPS()">EPS</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('peRatio') != -1}" (click)="onSelectPE()">P/E</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnEquity') != -1}" (click)="onSelectROE()">ROE</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnAssets') != -1}" (click)="onSelectROA()">ROA</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('dividendYield') != -1}" (click)="onSelectDivY()">DivY</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendROE') != -1}" (click)="onSelectTrROE()">t_ROE</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendEPS') != -1}" (click)="onSelectTrEPS()">t_EPS</th>
-            <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendDebtToEquity') != -1}" (click)="onSelectTrDTE()">t_D/E</th>
-            <th></th>
-        </tr>
+      <tr>
+        <th></th>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Sector</th>
+        <th>Price</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('priceToBook') != -1}" (click)="onSelectPB()">P/B</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('latestEPS') != -1}" (click)="onSelectEPS()">EPS</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('peRatio') != -1}" (click)="onSelectPE()">P/E</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnEquity') != -1}" (click)="onSelectROE()">ROE</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnAssets') != -1}" (click)="onSelectROA()">ROA</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('dividendYield') != -1}" (click)="onSelectDivY()">DivY</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendROE') != -1}" (click)="onSelectTrROE()">t_ROE</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendEPS') != -1}" (click)="onSelectTrEPS()">t_EPS</th>
+        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendDebtToEquity') != -1}" (click)="onSelectTrDTE()">t_D/E</th>
+        <th></th>
+      </tr>
     </thead>
     <tbody style="font-size: 14px;">
           <tr

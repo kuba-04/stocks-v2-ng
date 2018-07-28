@@ -18,9 +18,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link">
+            <a *ngIf="portfoliosEnabled" class="nav-link">
               <i *ngIf="!enabledPortfolioForm" (click)="onAddPortfolio()" style="cursor: pointer;" class="material-icons">add</i>
-              <app-portfolio-add *ngIf="enabledPortfolioForm"></app-portfolio-add>
+              <app-portfolio-add
+                  (formEnabled)="onDisableForm($event)"
+                  *ngIf="enabledPortfolioForm">
+              </app-portfolio-add>
             </a>
           </li>
         </ul>

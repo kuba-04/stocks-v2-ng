@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { EventEmitter } from 'events';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthenticationService {
@@ -11,6 +13,8 @@ export class AuthenticationService {
     private registerUrl = 'http://localhost:8090/user/register';
     private logoutUrl = 'http://localhost:8090/user/logout';
     private token: string;
+    private tokenUpdate = new BehaviorSubject<boolean>(false);
+    updated = this.tokenUpdate.asObservable();
 
     constructor(private http: Http) {
     }
@@ -28,10 +32,6 @@ export class AuthenticationService {
       return token ? token : "";
     }
 
-    isAuthenticated() {
-         return this.token != null;
-    }
-
     login(username: string, password: string): Observable<boolean> {
         return this.http
           .post(this.authUrl,
@@ -44,6 +44,7 @@ export class AuthenticationService {
                   // store username and jwt token in local storage to keep user logged in between page refreshes
                   localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
                   this.token = response.json().token;
+                  this.tokenUpdate.next(true);
                   return true;
               } else {
                   // failed login
@@ -55,17 +56,15 @@ export class AuthenticationService {
 
     logout(): Observable<boolean> {
         // clear token remove user from local storage to log user out
-        console.log("logging out...");
         return this.http
           .post(this.logoutUrl, "logoutUrl", {headers: this.getAuthHeaders()})
             .map((response: Response) => {
               if (response.ok) {
                 localStorage.removeItem('currentUser');
                 this.token = null;
-                console.log('logged out');
+                this.tokenUpdate.next(false);
                 return true;
               } else {
-                console.log('log out failed!')
                 return false;
               }
             })

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, OnChanges, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, OnDestroy, HostListener, ElementRef } from '@angular/core';
 import { Portfolio } from '../portfolio.model';
 import { PortfolioListService } from './portfolio-list.service';
 import { PortfolioAddComponent } from './portfolio-add/portfolio-add.component';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '../auth/authentication.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { StockListService } from '../stocks-list/stock-list.service';
@@ -13,11 +13,13 @@ import { StockListService } from '../stocks-list/stock-list.service';
   styleUrls: ['./portfolio-list.component.css']
 })
 export class PortfolioListComponent implements OnInit, OnDestroy, OnChanges {
-  enabledPortfolioForm: boolean = false;
   portfolios: string[] = ["main"];
   private subscription: Subscription;
-  activePortfolio: string = "";
+  activePortfolio = "";
   private portfolioAddComponent: PortfolioAddComponent;
+  portfoliosEnabled = false;
+  authSubscription: Subscription;
+  enabledPortfolioForm = false;
 
   constructor(private portfolioListService: PortfolioListService,
     private stockListService: StockListService,
@@ -27,15 +29,26 @@ export class PortfolioListComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnInit() {
-      this.retrievePortfolios();
+      this.authSubscription = this.authenticationService.updated
+          .subscribe(tokenExists => {
+            if (tokenExists) {
+              this.portfoliosEnabled = true;
+              this.retrievePortfolios();
+            }
+            else {
+              this.portfoliosEnabled = false;
+              this.portfolios = ["main"];
+              if (this.authenticationService.getToken().length > 0) {
+                  this.portfoliosEnabled = true;
+                  this.retrievePortfolios();
+              }
+            }
+          });
+
       this.subscription = this.portfolioListService.portfoliosChanged
         .subscribe(
           (portfolios: string[]) => this.portfolios.push(this.portfolioListService.newPortfolio)
         );
-    }
-
-    arePortfoliosEnabled() {
-      return this.authenticationService.getToken() !== null;
     }
 
     retrievePortfolios() {
@@ -45,7 +58,9 @@ export class PortfolioListComponent implements OnInit, OnDestroy, OnChanges {
               .forEach((portfolio) => {
                 if (portfolio != "main") this.portfolios.push(portfolio)
               }
-            ), error => console.log('unauthorized')
+            ), error => {
+              console.log('unauthorized')
+            }
         )
     }
 
@@ -76,6 +91,10 @@ export class PortfolioListComponent implements OnInit, OnDestroy, OnChanges {
 
     ngOnDestroy() {
       this.subscription.unsubscribe();
+    }
+
+    onDisableForm(formEnabled: boolean) {
+      this.enabledPortfolioForm = formEnabled;
     }
 
     @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {

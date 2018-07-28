@@ -2,6 +2,7 @@
     <form class="form-inline" (ngSubmit)="onAddTicker(f)" #f="ngForm">
       <div class="col-sm-6" >
           <input
+            [disabled]="loading || !buttonsEnabled"
             style="width: 70px;"
             type="text"
             id="ticker"
@@ -13,7 +14,7 @@
       </div>
       <div class="col-sm-6">
         <button
-          [disabled]="loading"
+          [disabled]="loading || !buttonsEnabled"
           class="btn"
           type="submit"
           >

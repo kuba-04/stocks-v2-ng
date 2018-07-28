@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+// import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/Rx';
 
 import { Stock } from '../stock.model';
@@ -16,20 +17,12 @@ export class StockListService {
   constructor(private http: Http,
               private authenticationService: AuthenticationService) {}
 
-  // getStocks() {
-  //   return this.http
-  //     .get(this.stocksURL, {headers: this.authenticationService.getAuthHeaders()})
-  //     .map(
-  //       (response: Response) => {
-  //           const data = response.json();
-  //           return data;
-  //       }
-  //     )
-  // }
-
   getPortfolioStocks(portfolio: string) {
+    var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    var user = currentUser == null ? 'main' : currentUser.username;
+
     return this.http
-      .get(this.stocksURL + portfolio, {headers: this.authenticationService.getAuthHeaders()})
+      .get(this.stocksURL + user + '/' + portfolio, {headers: this.authenticationService.getAuthHeaders()})
       .map(
         (response: Response) => {
           if (response.ok) {
@@ -42,13 +35,15 @@ export class StockListService {
   }
 
   addStock(ticker: string, portfolio: string) {
+    var user = JSON.parse(localStorage.getItem("currentUser")).username;
     return this.http
-      .post(this.stocksURL + portfolio + '/' + ticker, ticker, {headers: this.authenticationService.getAuthHeaders()})
+      .post(this.stocksURL + user + '/' + portfolio + '/' + ticker, ticker, {headers: this.authenticationService.getAuthHeaders()})
   }
 
   deleteStock(ticker: string) {
+    var user = JSON.parse(localStorage.getItem("currentUser")).username;
     return this.http
-      .delete(this.stocksURL + ticker, {headers: this.authenticationService.getAuthHeaders()})
+      .delete(this.stocksURL + user + '/' + ticker, {headers: this.authenticationService.getAuthHeaders()})
   }
 
   putSortOrder(sortingOrder: SortingOrder) {

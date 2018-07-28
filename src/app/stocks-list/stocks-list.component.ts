@@ -1,10 +1,12 @@
-import { Component, OnInit, HostListener, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 
 import { Stock } from '../stock.model';
 import { StockListService } from './stock-list.service';
 import { SortingOrder } from './sorting.model';
 import { Observable } from 'rxjs/Observable';
+import { AuthenticationService } from '../auth/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stocks-list',
@@ -18,22 +20,44 @@ export class StocksListComponent implements OnInit {
   selectedSorting: string[] = [];
   routes: Observable<string[]>;
   tab: string;
+  buttonsEnabled = false;
+  authSubscription: Subscription;
 
   constructor(private stockListService: StockListService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
-        this.tab = paramMap.get('id');
+        // this.tab = paramMap.get('id');
+        this.tab = this.activatedRoute.snapshot.url.toString();
         this.retrieveData();
+
+        // subscribe to current login state
+        this.authSubscription = this.authenticationService.updated
+            .subscribe(tokenExists => {
+              if (tokenExists) {
+                this.buttonsEnabled = true;
+                this.tab = paramMap.get('id');
+              } else {
+                if (this.authenticationService.getToken().length > 0) {
+                  this.tab = paramMap.get('id');
+                  this.buttonsEnabled = true;
+                } else {
+                  this.buttonsEnabled = false;
+                  this.tab = 'main';
+                  this.retrieveData();
+                }
+              };
+
+            });
       }, error => console.log('unauthorized')
     )
   }
 
   retrieveData() {
-    this.tab = this.activatedRoute.snapshot.url.toString();
     this.stockListService.getPortfolioStocks(this.tab)
       .subscribe(
         (stocks: any[]) => this.stocks = stocks, error => console.log('unauthorized')
@@ -41,19 +65,24 @@ export class StocksListComponent implements OnInit {
   }
 
   onDeleteStock(ticker: string) {
-    this.stockListService.deleteStock(ticker)
-      .subscribe(
-        (response) => {
-          if(response.status === 200) {
-              this.retrieveData();
+    this.tab = this.activatedRoute.snapshot.url.toString();
+
+    if (this.authenticationService.getToken().length > 0) {
+      this.stockListService.deleteStock(ticker)
+        .subscribe(
+          (response) => {
+            if(response.status === 200) {
+                this.retrieveData();
+            }
           }
-        }
-      );
+        );  
+    }
   }
 
   onSortByAll() {
     const tab = this.activatedRoute.snapshot.url.toString();
-    this.stockListService.putSortOrder(new SortingOrder(SortingOrder.defaultSortOrder, tab))
+    var user = JSON.parse(localStorage.getItem("currentUser")).username;
+    this.stockListService.putSortOrder(new SortingOrder(user, SortingOrder.defaultSortOrder, tab))
       .subscribe(
         (response) => {
           if(response.status === 200) {
@@ -65,7 +94,8 @@ export class StocksListComponent implements OnInit {
 
   onSortByCustom() {
     const tab = this.activatedRoute.snapshot.url.toString();
-    this.stockListService.putSortOrder(new SortingOrder(this.selectedSorting, tab))
+    var user = JSON.parse(localStorage.getItem("currentUser")).username;
+    this.stockListService.putSortOrder(new SortingOrder(user, this.selectedSorting, tab))
     .subscribe(
       (response) => {
         if(response.status === 200) {

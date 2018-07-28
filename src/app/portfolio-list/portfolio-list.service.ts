@@ -14,13 +14,16 @@ export class PortfolioListService {
   portfolios: string[] = [];
   newPortfolio: string;
   portfoliosChanged = new Subject<string[]>();
+  private portfolioUrl = 'http://localhost:8090/v2/portfolios/';
 
   constructor(private http: Http,
               private stockListService: StockListService,
               private authenticationService: AuthenticationService) {}
 
   getPortfolios() {
-    return this.http.get('http://localhost:8090/v2/portfolios', {headers: this.authenticationService.getAuthHeaders()})
+    var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    var user = currentUser == null ? 'main' : currentUser.username;
+    return this.http.get(this.portfolioUrl + user, {headers: this.authenticationService.getAuthHeaders()})
       .map(
         (response: Response) => {
           if (response.ok) {
@@ -31,9 +34,6 @@ export class PortfolioListService {
   }
 
   refreshPortfolios() {
-    // if (this.authenticationService.getToken() == null) {
-    //   this.portfolios = ['main'];
-    // }
     this.portfoliosChanged.next(this.portfolios.slice());
   }
 
@@ -44,6 +44,7 @@ export class PortfolioListService {
   }
 
   deletePortfolio(index: number, portfolio: string) {
-    return this.http.delete('http://localhost:8090/v2/portfolios/' + portfolio, portfolio)
+    var user = JSON.parse(localStorage.getItem("currentUser")).username;
+    return this.http.delete(this.portfolioUrl + user + '/'+ portfolio, portfolio)
   }
 }

@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
                                          form.form.controls.password.value)
             .subscribe(result => {
                 if (result === true) {
-                    console.log('logged in successfully!')
                     this.router.navigate(['/portfolio/main']);
                 } else {
                     this.error = 'Username or password is incorrect';
