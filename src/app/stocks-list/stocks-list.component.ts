@@ -31,24 +31,21 @@ export class StocksListComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
-        // this.tab = paramMap.get('id');
-        this.tab = this.activatedRoute.snapshot.url.toString();
-        this.retrieveData();
-
+        this.tab = paramMap.get('id');
+        this.retrieveData(this.tab);
         // subscribe to current login state
         this.authSubscription = this.authenticationService.updated
             .subscribe(tokenExists => {
               if (tokenExists) {
                 this.buttonsEnabled = true;
-                this.tab = paramMap.get('id');
               } else {
                 if (this.authenticationService.getToken().length > 0) {
-                  this.tab = paramMap.get('id');
+                  // this.tab = this.activatedRoute.snapshot.url.toString();
+                  this.retrieveData(this.tab);
                   this.buttonsEnabled = true;
                 } else {
                   this.buttonsEnabled = false;
-                  this.tab = 'main';
-                  this.retrieveData();
+                  this.retrieveData('main');
                 }
               };
 
@@ -57,25 +54,25 @@ export class StocksListComponent implements OnInit {
     )
   }
 
-  retrieveData() {
-    this.stockListService.getPortfolioStocks(this.tab)
+  retrieveData(currentTab: string) {
+    this.stockListService.getPortfolioStocks(currentTab)
       .subscribe(
         (stocks: any[]) => this.stocks = stocks, error => console.log('unauthorized')
       );
   }
 
   onDeleteStock(ticker: string) {
-    this.tab = this.activatedRoute.snapshot.url.toString();
+    const tab = this.activatedRoute.snapshot.url.toString();
 
     if (this.authenticationService.getToken().length > 0) {
       this.stockListService.deleteStock(ticker)
         .subscribe(
           (response) => {
             if(response.status === 200) {
-                this.retrieveData();
+                this.retrieveData(tab);
             }
           }
-        );  
+        );
     }
   }
 
@@ -86,7 +83,7 @@ export class StocksListComponent implements OnInit {
       .subscribe(
         (response) => {
           if(response.status === 200) {
-              this.retrieveData();
+              this.retrieveData(tab);
           }
         }, error => console.log('unauthorized')
       );
@@ -99,7 +96,7 @@ export class StocksListComponent implements OnInit {
     .subscribe(
       (response) => {
         if(response.status === 200) {
-            this.retrieveData();
+            this.retrieveData(tab);
         }
       }
     );

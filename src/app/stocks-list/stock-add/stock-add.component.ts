@@ -44,7 +44,8 @@ export class StockAddComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           if (response.status === 200) {
-            this.stocksListComponent.retrieveData();
+            // this.stocksListComponent.retrieveData();
+            this.stocksListComponent.retrieveData(tab);
             this.loading = false;
           } else if (response.status ===  204) {
             alert("Sorry, we are not able to fetch data from the external service."
