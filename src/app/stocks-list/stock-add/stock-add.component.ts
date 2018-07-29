@@ -26,7 +26,7 @@ export class StockAddComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authSubscription = this.authenticationService.updated
         .subscribe(buttonsEnabled => this.buttonsEnabled = buttonsEnabled);
-    if (this.authenticationService.getToken() !== null || this.authenticationService.getToken().length > 0) {
+    if (this.authenticationService.getToken().length > 0) {
         this.buttonsEnabled = true;
     }
   }
@@ -58,8 +58,8 @@ export class StockAddComponent implements OnInit, OnDestroy {
             alert("Ticker not found!");
           } else {
             console.log(error);
-            this.loading = false;
           }
+          this.loading = false;
         }
       );
       form.reset();
