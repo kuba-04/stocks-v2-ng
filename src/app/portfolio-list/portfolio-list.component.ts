@@ -72,6 +72,14 @@ export class PortfolioListComponent implements OnInit, OnDestroy, OnChanges {
       this.enabledPortfolioForm = true;
     }
 
+    setActivePortfolio(portfolio: string) {
+      this.activePortfolio = portfolio;
+    }
+
+    setEnabledPortfolioForm(enabled: boolean) {
+      this.enabledPortfolioForm = enabled;
+    }
+
     ngOnChanges() {
     }
 
@@ -100,4 +108,10 @@ export class PortfolioListComponent implements OnInit, OnDestroy, OnChanges {
     @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
       this.enabledPortfolioForm = false;
     }
+
+    //TODO figure out how to hide portfolio add form once you click onClickedOutside
+    // onClickedOutside(e: MouseEvent) {
+    // }
+    // html:
+    // <!-- (clickOutside)="onClickedOutside($event)" -->
 }

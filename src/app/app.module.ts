@@ -18,6 +18,7 @@ import { AuthenticationService } from './auth/authentication.service';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterSuccessComponent } from './auth/register/register-success/register-success.component';
+import { ClickOutsideModule } from 'ng4-click-outside';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RegisterSuccessComponent } from './auth/register/register-success/regis
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ClickOutsideModule
   ],
   providers: [StockListService, PortfolioListService, AuthenticationService],
   bootstrap: [AppComponent]
