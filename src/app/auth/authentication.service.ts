@@ -70,7 +70,7 @@ export class AuthenticationService {
             })
     }
 
-    register(username: string, email: string, password: string, matchingPassword: string): Observable<boolean> {
+    register(username: string, email: string, password: string, matchingPassword: string): Observable<number> {
         return this.http.post(
             this.registerUrl,
             JSON.stringify(
@@ -82,18 +82,17 @@ export class AuthenticationService {
             {headers: this.getAuthHeaders()})
 
             .map((response: Response) => {
+              return response.status;
                 // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;
-                if (response.ok) {
+                // let token = response.json() && response.json().token;
+                // if (response.status === 200) {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-                    this.token = response.json().token;
+                    //TODO do we want to have user logged in after registration?
+                    // localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    // this.token = response.json().token;
                     // successful login
-                    return true;
-                } else {
-                    // failed login
-                    return false;
-                }
+                //     return "success";
+                // }
             })
             // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }

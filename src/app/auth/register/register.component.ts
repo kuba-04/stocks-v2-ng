@@ -25,14 +25,25 @@ export class RegisterComponent implements OnInit {
                                         form.form.controls.password.value,
                                         form.form.controls.matchingPassword.value)
             .subscribe(result => {
-                if (result === true) {
+                if (result == 200) {
                     this.router.navigate(['user/register-success']);
                 } else {
-                    this.loading = false;
+                    this.error = 'Registration failed. Please try again'
                 }
+                this.loading = false;
             }, error => {
+              if (error.status == 412) {
+                  this.error = "Passwords don't match! Please try again";
+              } else if (error.status == 422) {
+                  this.error = "Invalid email format! Please try again";
+              } else if (error.status == 409) {
+                  this.error = "email already exists!";
+              } else if (error.status == 406) {
+                  this.error = "username already exists!";
+              } else {
+                  this.error = 'Registration failed. Please try again'
+              }
               this.loading = false;
-              this.error = error;
             });
   }
 }
