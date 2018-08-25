@@ -26,10 +26,20 @@ export class AuthenticationService {
          });
     }
 
-    getToken(): String {
+    getToken(): string {
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var token = currentUser && currentUser.token;
       return token ? token : "";
+    }
+
+    getCurrentUser(): string {
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      // console.log(currentUser);
+      if (currentUser == null || currentUser == '') {
+        return '';
+      } else {
+        return JSON.parse(localStorage.getItem('currentUser')).username;
+      }
     }
 
     login(username: string, password: string): Observable<boolean> {

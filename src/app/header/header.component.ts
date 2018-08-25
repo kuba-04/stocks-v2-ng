@@ -14,15 +14,16 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   onLogout() {
     this.authenticationService.logout().subscribe(result => {
         if (result == true) {
-          // this.router.navigate(['user/login']);
           this.router.navigate(['/']);
           this.portfolioListService.refreshPortfolios();
-          this.ngOnInit();
+          // this.ngOnInit();
+          // this.currentUser = "";
         }
     });
   }

@@ -35,4 +35,5 @@ export class PortfolioAddComponent implements OnInit {
     this.parentComponent.setEnabledPortfolioForm(false);
   }
 
+
 }
