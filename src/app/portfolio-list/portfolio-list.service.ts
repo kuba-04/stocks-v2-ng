@@ -45,6 +45,6 @@ export class PortfolioListService {
 
   deletePortfolio(index: number, portfolio: string) {
     var user = JSON.parse(localStorage.getItem("currentUser")).username;
-    return this.http.delete(this.portfolioUrl + user + '/'+ portfolio, portfolio)
+    return this.http.delete(this.portfolioUrl + user + '/'+ portfolio, {headers: this.authenticationService.getAuthHeaders()})
   }
 }
