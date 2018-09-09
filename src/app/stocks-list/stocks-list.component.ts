@@ -57,8 +57,11 @@ export class StocksListComponent implements OnInit {
   retrieveData(currentTab: string) {
     this.stockListService.getPortfolioStocks(currentTab)
       .subscribe(
-        (stocks: any[]) => this.stocks = stocks, error => console.log('unauthorized')
-      );
+        (stocks: any[]) => this.stocks = stocks,
+        error => {
+          this.authenticationService.logoutIfTokenExpired(error);
+        }
+      )
   }
 
   onDeleteStock(ticker: string) {

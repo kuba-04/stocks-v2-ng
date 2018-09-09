@@ -59,7 +59,8 @@ export class PortfolioListComponent implements OnInit, OnDestroy, OnChanges {
                 if (portfolio != "main") this.portfolios.push(portfolio)
               }
             ), error => {
-              console.log('unauthorized')
+              // console.log('unauthorized');
+              this.authenticationService.logoutIfTokenExpired(error);
             }
         )
     }

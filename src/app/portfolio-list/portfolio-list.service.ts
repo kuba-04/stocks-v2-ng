@@ -31,6 +31,11 @@ export class PortfolioListService {
             return data;
           }
         })
+      // .catch(
+      //   (error: Response) => {
+      //       return Observable.throw(error);
+      //   }
+      // )
   }
 
   refreshPortfolios() {

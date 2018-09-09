@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { EventEmitter } from 'events';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,7 +17,7 @@ export class AuthenticationService {
     private tokenUpdate = new BehaviorSubject<boolean>(false);
     updated = this.tokenUpdate.asObservable();
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private router: Router) {
     }
 
     public getAuthHeaders(): Headers {
@@ -105,5 +106,15 @@ export class AuthenticationService {
                 // }
             })
             // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    logoutIfTokenExpired(error: Response) {
+      if (this.getToken() != null && error != null) {
+            localStorage.removeItem('currentUser');
+            this.token = null;
+            this.tokenUpdate.next(false);
+            this.router.navigate(['/portfolio/main']);
+            console.log('Your token has expired. Please log in again.')
+      }
     }
 }

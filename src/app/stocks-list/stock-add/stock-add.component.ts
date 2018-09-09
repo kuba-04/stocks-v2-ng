@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StocksListComponent } from '../stocks-list.component';
 import { NgForm } from '@angular/forms';
 import { Stock } from '../../stock.model';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './stock-add.component.html',
   styleUrls: ['./stock-add.component.css']
 })
-export class StockAddComponent implements OnInit, OnDestroy {
+export class StockAddComponent implements OnInit {
   loading = false;
   buttonsEnabled = false;
   authSubscription: Subscription;
@@ -30,8 +30,6 @@ export class StockAddComponent implements OnInit, OnDestroy {
         this.buttonsEnabled = true;
     }
   }
-
-  ngOnDestroy() {}
 
   isPanelEnabled() {
     this.authenticationService.getToken() !== null;
