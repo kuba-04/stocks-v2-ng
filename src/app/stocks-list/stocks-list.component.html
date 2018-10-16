@@ -28,60 +28,62 @@
       </button>
     </div>
   </div>
-<br>
-<table class="table table-stripped">
-  <thead>
-      <tr>
-        <th></th>
-        <th>Ticker</th>
-        <th>Name</th>
-        <th>Sector</th>
-        <th>Price</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('priceToBook') != -1}" (click)="onSelectPB()">P/B</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('latestEPS') != -1}" (click)="onSelectEPS()">EPS</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('peRatio') != -1}" (click)="onSelectPE()">P/E</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnEquity') != -1}" (click)="onSelectROE()">ROE</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnAssets') != -1}" (click)="onSelectROA()">ROA</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('dividendYield') != -1}" (click)="onSelectDivY()">DivY</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendROE') != -1}" (click)="onSelectTrROE()">t_ROE</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendEPS') != -1}" (click)="onSelectTrEPS()">t_EPS</th>
-        <th class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendDebtToEquity') != -1}" (click)="onSelectTrDTE()">t_D/E</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody style="font-size: 14px;">
-          <tr
-            *ngFor="let stock of stocks; let i = index"
-            [ngClass]="{'active': stock.ticker == editedStock }"
-            class="stock-row"
-            height="70px"
-            >
-            <ng-template #tipContentDesc>{{ stock.description }}</ng-template>
-            <ng-template #tipContentInd>{{ stock.industry }}</ng-template>
-            <ng-template #tipContentROE><p>{{ stock.roe_3 }} / {{ stock.roe_2 }} / {{ stock.roe_1 }} / {{ stock.roe_0 }}</p></ng-template>
-            <ng-template #tipContentActualEPS><p>{{ stock.actualEPS_3 }} / {{ stock.actualEPS_2 }} / {{ stock.actualEPS_1 }} / {{ stock.actualEPS_0 }}</p></ng-template>
-            <ng-template #tipContentDebtToEquity><p>{{ stock.debtToEquity_3 }} / {{ stock.debtToEquity_2 }} / {{ stock.debtToEquity_1 }} / {{ stock.debtToEquity_0 }}</p></ng-template>
+  <br>
+  <div>
+    <table class="table table-stripped" style="table-layout: fixed;">
+      <thead>
+          <tr>
+            <th style="width: 30px;"></th>
+            <th style="width: 75px;">Ticker</th>
+            <th style="width: 170px;">Name</th>
+            <th style="width: 100px;">Sector</th>
+            <th style="width: 70px;">Price</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('priceToBook') != -1}" (click)="onSelectPB()">P/B</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('latestEPS') != -1}" (click)="onSelectEPS()">EPS</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('peRatio') != -1}" (click)="onSelectPE()">P/E</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnEquity') != -1}" (click)="onSelectROE()">ROE</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnAssets') != -1}" (click)="onSelectROA()">ROA</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('dividendYield') != -1}" (click)="onSelectDivY()">DivY</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendROE') != -1}" (click)="onSelectTrROE()">t_ROE</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendEPS') != -1}" (click)="onSelectTrEPS()">t_EPS</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendDebtToEquity') != -1}" (click)="onSelectTrDTE()">t_D/E</th>
+            <th style="width: 35px;"></th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 14px;">
+              <tr
+                *ngFor="let stock of stocks; let i = index"
+                [ngClass]="{'active': stock.ticker == editedStock }"
+                class="stock-row"
+                height="70px"
+                >
+                <ng-template #tipContentDesc>{{ stock.description }}</ng-template>
+                <ng-template #tipContentInd>{{ stock.industry }}</ng-template>
+                <ng-template #tipContentROE><p>{{ stock.roe_3 }} / {{ stock.roe_2 }} / {{ stock.roe_1 }} / {{ stock.roe_0 }}</p></ng-template>
+                <ng-template #tipContentActualEPS><p>{{ stock.actualEPS_3 }} / {{ stock.actualEPS_2 }} / {{ stock.actualEPS_1 }} / {{ stock.actualEPS_0 }}</p></ng-template>
+                <ng-template #tipContentDebtToEquity><p>{{ stock.debtToEquity_3 }} / {{ stock.debtToEquity_2 }} / {{ stock.debtToEquity_1 }} / {{ stock.debtToEquity_0 }}</p></ng-template>
 
-            <td>
-              <span placement="top" [ngbTooltip]="tipContentDesc" container="body" style="float:right;" class="material-icons info-icon">
-              info_outline
-              </span>
-            </td>
-            <td>{{ stock.ticker }}</td>
-            <td><span>{{ stock.name }}</span></td>
-            <td placement="top" [ngbTooltip]="tipContentInd" container="body">{{ stock.sector }}</td>
-            <td>{{ stock.price }}</td>
-            <td>{{ stock.priceToBook }}</td>
-            <td>{{ stock.latestEPS }}</td>
-            <td>{{ stock.peRatio }}</td>
-            <td>{{ stock.returnOnEquity }}</td>
-            <td>{{ stock.returnOnAssets }}</td>
-            <td>{{ stock.dividendYield }}</td>
-            <td placement="top" [ngbTooltip]="tipContentROE" container="body">{{ stock.trend_ROE }}</td>
-            <td placement="top" [ngbTooltip]="tipContentActualEPS" container="body">{{ stock.trend_EPS }}</td>
-            <td placement="top" [ngbTooltip]="tipContentDebtToEquity" container="body">{{ stock.trend_DebtToEquity }}</td>
-            <td><i class="material-icons delete-icon" (click)="onDeleteStock(stock.ticker)">delete</i></td>
-        </tr>
-    </tbody>
-</table>
+                <td style="width: 30px;">
+                  <span [ngbTooltip]="tipContentDesc" class="material-icons info-icon">info_outline</span>
+                </td>
+                <td style="width: 75px;">{{ stock.ticker }}</td>
+                <td style="width: 170px;"><span>{{ stock.name }}</span></td>
+                <td style="width: 100px;"placement="top" [ngbTooltip]="tipContentInd" container="body">{{ stock.sector }}</td>
+                <td style="width: 70px;">{{ stock.price }}</td>
+                <td style="width: 70px;">{{ stock.priceToBook }}</td>
+                <td style="width: 70px;">{{ stock.latestEPS }}</td>
+                <td style="width: 70px;">{{ stock.peRatio }}</td>
+                <td style="width: 70px;">{{ stock.returnOnEquity }}</td>
+                <td style="width: 70px;">{{ stock.returnOnAssets }}</td>
+                <td style="width: 70px;">{{ stock.dividendYield }}</td>
+                <td style="width: 70px;" placement="top" [ngbTooltip]="tipContentROE" container="body">{{ stock.trend_ROE }}</td>
+                <td style="width: 70px;" placement="top" [ngbTooltip]="tipContentActualEPS" container="body">{{ stock.trend_EPS }}</td>
+                <td style="width: 70px;" placement="top" [ngbTooltip]="tipContentDebtToEquity" container="body">{{ stock.trend_DebtToEquity }}</td>
+                <td style="width: 35px;">
+                  <i class="material-icons delete-icon" (click)="onDeleteStock(stock.ticker)">delete</i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
 </div>
