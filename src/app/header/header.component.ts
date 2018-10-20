@@ -6,7 +6,8 @@ import { AuthenticationService } from '../auth/authentication.service';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  providers: [PortfolioListService]
 })
 export class HeaderComponent implements OnInit {
 
