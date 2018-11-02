@@ -19,6 +19,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterSuccessComponent } from './auth/register/register-success/register-success.component';
 import { ClickOutsideModule } from 'ng4-click-outside';
+import { RegisterConfirmedComponent } from './auth/register/register-confirmed/register-confirmed.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ClickOutsideModule } from 'ng4-click-outside';
     PortfolioAddComponent,
     RegisterComponent,
     LoginComponent,
-    RegisterSuccessComponent
+    RegisterSuccessComponent,
+    RegisterConfirmedComponent
   ],
   imports: [
     BrowserModule,

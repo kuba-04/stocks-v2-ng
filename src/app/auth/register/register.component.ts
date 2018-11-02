@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
+import { RegisterSuccessComponent } from './register-success/register-success.component';
 
 @Component({
   selector: 'app-register',

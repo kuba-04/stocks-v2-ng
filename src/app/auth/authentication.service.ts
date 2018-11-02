@@ -59,6 +59,7 @@ export class AuthenticationService {
                   return true;
               } else {
                   // failed login
+                  // console.log(response);
                   return false;
               }
           }).shareReplay();
