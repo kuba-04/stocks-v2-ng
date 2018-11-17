@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
             }, error => {
               this.error = error._body.includes('User disabled') ?
                 "Oops! You probably didn't click on the link in the confirmation email. Please check your email." :
-                "Bad credentials! You used a wrong password or the username doesn't exist! Please try again."
+                "Bad credentials! Either username doesn't exist or the password is incorrect! " +
+                "Please try again or reset your password by clicking "
               this.loading = false;
             });
   }
