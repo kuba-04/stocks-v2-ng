@@ -23,9 +23,7 @@ export class HeaderComponent implements OnInit {
         if (result == true) {
           this.router.navigate(['/']);
           this.portfolioListService.refreshPortfolios();
-          // this.ngOnInit();
-          // this.currentUser = "";
-        }
+        } 
     });
   }
 

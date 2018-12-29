@@ -14,6 +14,7 @@ export class AuthenticationService {
     private registerUrl = 'http://localhost:8090/user/register';
     private logoutUrl = 'http://localhost:8090/user/logout';
     private passwordResetUrl = 'http://localhost:8090/user/resetPassword';
+    private changePasswordUrl = 'http://localhost:8090/user/changePassword';
     private token: string;
     private tokenUpdate = new BehaviorSubject<boolean>(false);
     updated = this.tokenUpdate.asObservable();
@@ -101,7 +102,21 @@ export class AuthenticationService {
           .map((response: Response) => {
             return response.status;
           })
+    }
 
+    changePassword(currentUser: string, tempPassword: string, newPassword: string, matchingPassword: string): Observable<number> {
+      return this.http.post(
+          this.changePasswordUrl,
+          JSON.stringify({
+            username: currentUser,
+            tempPassword: tempPassword,
+            password: newPassword,
+            matchingPassword: matchingPassword
+          }),
+          {headers: this.getAuthHeaders()}
+        ).map((response: Response) => {
+              return response.status;
+        })
     }
 
     logoutIfTokenExpired(error: Response) {
