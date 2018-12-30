@@ -32,11 +32,6 @@ export class StockListService {
             console.log("you don't have access to see this")
           }
         })
-      // .catch(
-      //       (error: Response) => {
-      //           return Observable.throw(error);
-      //       }
-      //   );
   }
 
   addStock(ticker: string, portfolio: string) {

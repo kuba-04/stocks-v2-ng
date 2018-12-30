@@ -18,15 +18,28 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  onChangePassword() {
+    this.router.navigate(['user/change-password']);
+  }
+
   onLogout() {
-    this.authenticationService.logout().subscribe(result => {
+    this.authenticationService.logout()
+    .subscribe(result => {
         if (result == true) {
           this.router.navigate(['/']);
           this.portfolioListService.refreshPortfolios();
-          // this.ngOnInit();
-          // this.currentUser = "";
         }
     });
+  }
+
+  onDeleteAccount() {
+    this.authenticationService.deleteUser()
+    .subscribe(result => {
+      if (result == true) {
+        this.router.navigate(['/']);
+        this.portfolioListService.refreshPortfolios();
+      }
+    })
   }
 
 }

@@ -21,6 +21,7 @@ import { RegisterSuccessComponent } from './auth/register/register-success/regis
 import { ClickOutsideModule } from 'ng4-click-outside';
 import { RegisterConfirmedComponent } from './auth/register/register-confirmed/register-confirmed.component';
 import { ResetPasswordComponent } from './auth/login/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './auth/login/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ResetPasswordComponent } from './auth/login/reset-password/reset-passwo
     LoginComponent,
     RegisterSuccessComponent,
     RegisterConfirmedComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

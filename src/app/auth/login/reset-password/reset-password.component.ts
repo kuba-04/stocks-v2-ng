@@ -30,17 +30,9 @@ export class ResetPasswordComponent implements OnInit {
                 }
                 this.loading = false;
             }, error => {
-              // if (error.status == 412) {
-              //     this.error = "Passwords don't match! Please try again";
-              // } else if (error.status == 422) {
-              //     this.error = "Invalid email format! Please try again";
-              // } else if (error.status == 409) {
-              //     this.error = "email already exists!";
-              // } else if (error.status == 406) {
-              //     this.error = "username already exists!";
-              // } else {
-              //     this.error = 'Registration failed. Please try again'
-              // }
+              if (error.status == 404) {
+                  this.message = "Email doesn't exist!";
+                }
               this.loading = false;
             });
   }

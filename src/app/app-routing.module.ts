@@ -8,6 +8,7 @@ import { LoginComponent } from "./auth/login/login.component";
 import { RegisterSuccessComponent } from "./auth/register/register-success/register-success.component";
 import { RegisterConfirmedComponent } from "./auth/register/register-confirmed/register-confirmed.component";
 import { ResetPasswordComponent } from "./auth/login/reset-password/reset-password.component";
+import { ChangePasswordComponent } from "./auth/login/change-password/change-password.component";
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'portfolio/main', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const appRoutes: Routes = [
     { path: 'user/login', component: LoginComponent },
     { path: 'user/register-success', component: RegisterSuccessComponent },
     { path: 'user/register-confirmed', component: RegisterConfirmedComponent },
-    { path: 'user/reset-password', component: ResetPasswordComponent }
+    { path: 'user/reset-password', component: ResetPasswordComponent },
+    { path: 'user/change-password', component: ChangePasswordComponent }
 ]
 
 @NgModule({
