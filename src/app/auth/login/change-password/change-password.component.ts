@@ -12,16 +12,22 @@ export class ChangePasswordComponent implements OnInit {
   loading = false;
   error = '';
   message = '';
+  currentUser = '';
 
   constructor(private router: Router,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.currentUser = this.authenticationService.getCurrentUser();
   }
 
   onChangePassword(form: NgForm) {
     this.loading = true;
-    this.authenticationService.changePassword(form.form.controls.username.value,
+    var user = this.currentUser;
+    if (user === '') {
+      user = form.form.controls.username.value;
+    }
+    this.authenticationService.changePassword(user,
                                         form.form.controls.tempPassword.value,
                                         form.form.controls.newPassword.value,
                                         form.form.controls.matchingPassword.value)

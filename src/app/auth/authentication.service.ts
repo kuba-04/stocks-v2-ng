@@ -15,6 +15,7 @@ export class AuthenticationService {
     private logoutUrl = 'http://localhost:8090/user/logout';
     private passwordResetUrl = 'http://localhost:8090/user/resetPassword';
     private changePasswordUrl = 'http://localhost:8090/user/changePassword';
+    private deleteUserUrl = 'http://localhost:8090/user/delete';
     private token: string;
     private tokenUpdate = new BehaviorSubject<boolean>(false);
     updated = this.tokenUpdate.asObservable();
@@ -116,6 +117,22 @@ export class AuthenticationService {
           {headers: this.getAuthHeaders()}
         ).map((response: Response) => {
               return response.status;
+        })
+    }
+
+    deleteUser(): Observable<boolean> {
+      var currentUser = JSON.parse(localStorage.getItem('currentUser')).username;
+      return this.http.delete(
+        this.deleteUserUrl + '/' + currentUser, {headers: this.getAuthHeaders()})
+        .map((response: Response) => {
+          if (response.ok) {
+            localStorage.removeItem('currentUser');
+            this.token = null;
+            this.tokenUpdate.next(false);
+            return true;
+          } else {
+            return false;
+          }
         })
     }
 
