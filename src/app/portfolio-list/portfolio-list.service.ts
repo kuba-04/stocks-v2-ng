@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Rx';
 
-import { Portfolio } from '../portfolio.model';
 import { StockListService } from '../stocks-list/stock-list.service';
 import { AuthenticationService } from '../auth/authentication.service';
 

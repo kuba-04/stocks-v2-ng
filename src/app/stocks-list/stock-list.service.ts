@@ -7,6 +7,7 @@ import { Stock } from '../stock.model';
 import { SortingOrder } from './sorting.model';
 import { AuthenticationService } from '../auth/authentication.service';
 import { Observable } from 'rxjs/Observable';
+import { StockDto } from '../stockDto.model';
 
 @Injectable()
 export class StockListService {
@@ -36,18 +37,72 @@ export class StockListService {
 
   addStock(ticker: string, portfolio: string) {
     var user = JSON.parse(localStorage.getItem("currentUser")).username;
+    var stock = new StockDto(user, portfolio, ticker);
     return this.http
-      .post(this.stocksURL + user + '/' + portfolio + '/' + ticker, ticker, {headers: this.authenticationService.getAuthHeaders()})
+      .post(this.stocksURL + "add", stock, {headers: this.authenticationService.getAuthHeaders()})
+      .map(
+        (response: Response) => {
+          if (response.ok) {
+            const data = response.json();
+            return data;
+          } else if (response.status ===  204) {
+                alert("Sorry, we are not able to fetch data from the external service."
+                  + " Please try again later.")
+          } else {
+                console.log(response);
+              }
+          },
+          (error) => {
+            if (error.status ===  404) {
+              alert("Ticker not found!");
+            } else {
+              console.log(error);
+            }
+        })
   }
 
-  deleteStock(ticker: string) {
+  deleteStock(ticker: string, portfolio: string) {
     var user = JSON.parse(localStorage.getItem("currentUser")).username;
+    var stock = new StockDto(user, portfolio, ticker);
     return this.http
-      .delete(this.stocksURL + user + '/' + ticker, {headers: this.authenticationService.getAuthHeaders()})
+      .post(this.stocksURL + "delete", stock, {headers: this.authenticationService.getAuthHeaders()})
+      .map(
+        (response: Response) => {
+          if (response.ok) {
+            const data = response.json();
+            return data;
+          } else {
+            console.log(response);
+          }
+        },
+        (error) => console.log(error));
   }
 
-  putSortOrder(sortingOrder: SortingOrder) {
+  putCustomSortOrder(sortingOrder: SortingOrder) {
     return this.http
-      .put(this.sortingURL, sortingOrder, {headers: this.authenticationService.getAuthHeaders()})
+      .post(this.sortingURL + "custom", sortingOrder, {headers: this.authenticationService.getAuthHeaders()})
+      .map(
+        (response: Response) => {
+          if (response.ok) {
+            const data = response.json();
+            return data;
+          } else {
+            console.log("you don't have access to see this")
+          }
+        })
+  }
+
+  putDefaultOrder(sortingOrder: SortingOrder) {
+    return this.http
+      .post(this.sortingURL + "default", sortingOrder, {headers: this.authenticationService.getAuthHeaders()})
+      .map(
+        (response: Response) => {
+          if (response.ok) {
+            const data = response.json();
+            return data;
+          } else {
+            console.log("you don't have access to see this")
+          }
+        })
   }
 }

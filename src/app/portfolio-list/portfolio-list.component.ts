@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, OnChanges, OnDestroy, HostListener, ElementRef } from '@angular/core';
-import { Portfolio } from '../portfolio.model';
 import { PortfolioListService } from './portfolio-list.service';
 import { PortfolioAddComponent } from './portfolio-add/portfolio-add.component';
 import { Subscription, BehaviorSubject } from 'rxjs';

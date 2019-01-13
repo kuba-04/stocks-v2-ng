@@ -7,6 +7,7 @@ import { SortingOrder } from './sorting.model';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../auth/authentication.service';
 import { Subscription } from 'rxjs';
+import { ParamConstants } from '../param.constants';
 
 @Component({
   selector: 'app-stocks-list',
@@ -66,114 +67,110 @@ export class StocksListComponent implements OnInit {
 
   onDeleteStock(ticker: string) {
     const tab = this.activatedRoute.snapshot.url.toString();
-
     if (this.authenticationService.getToken().length > 0) {
-      this.stockListService.deleteStock(ticker)
-        .subscribe(
-          (response) => {
-            if(response.status === 200) {
-                this.retrieveData(tab);
-            }
-          }
-        );
+      this.stockListService.deleteStock(ticker, tab)
+      .subscribe(
+        (stocks: any[]) => this.stocks = stocks,
+        error => {
+          console.log(error)
+        }
+      )
     }
   }
 
   onSortByAll() {
     const tab = this.activatedRoute.snapshot.url.toString();
     var user = JSON.parse(localStorage.getItem("currentUser")).username;
-    this.stockListService.putSortOrder(new SortingOrder(user, SortingOrder.defaultSortOrder, tab))
+    this.stockListService.putDefaultOrder(new SortingOrder(user, SortingOrder.defaultSortOrder, tab))
       .subscribe(
-        (response) => {
-          if(response.status === 200) {
-              this.retrieveData(tab);
-          }
-        }, error => console.log('unauthorized')
-      );
+        (stocks: any[]) => this.stocks = stocks,
+        error => {
+          console.log(error)
+        }
+      )
   }
 
   onSortByCustom() {
     const tab = this.activatedRoute.snapshot.url.toString();
     var user = JSON.parse(localStorage.getItem("currentUser")).username;
-    this.stockListService.putSortOrder(new SortingOrder(user, this.selectedSorting, tab))
-    .subscribe(
-      (response) => {
-        if(response.status === 200) {
-            this.retrieveData(tab);
+    this.stockListService.putCustomSortOrder(new SortingOrder(user, this.selectedSorting, tab))
+      .subscribe(
+        (stocks: any[]) => this.stocks = stocks,
+        error => {
+          console.log(error)
         }
-      }
-    );
+      )
   }
 
   onSelectPB() {
-    if (!this.selectedSorting.includes('priceToBook')) {
-      this.selectedSorting.push('priceToBook');
+    if (!this.selectedSorting.includes(ParamConstants.PRICE_TO_BOOK)) {
+      this.selectedSorting.push(ParamConstants.PRICE_TO_BOOK);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'priceToBook');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.PRICE_TO_BOOK);
     }
   }
 
   onSelectEPS() {
-    if (!this.selectedSorting.includes('latestEPS')) {
-      this.selectedSorting.push('latestEPS');
+    if (!this.selectedSorting.includes(ParamConstants.EPS)) {
+      this.selectedSorting.push(ParamConstants.EPS);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'latestEPS');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.EPS);
     }
   }
 
   onSelectPE() {
-    if (!this.selectedSorting.includes('peRatio')) {
-      this.selectedSorting.push('peRatio');
+    if (!this.selectedSorting.includes(ParamConstants.PE_RATIO)) {
+      this.selectedSorting.push(ParamConstants.PE_RATIO);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'peRatio');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.PE_RATIO);
     }
   }
 
   onSelectROE() {
-    if (!this.selectedSorting.includes('returnOnEquity')) {
-      this.selectedSorting.push('returnOnEquity');
+    if (!this.selectedSorting.includes(ParamConstants.ROE)) {
+      this.selectedSorting.push(ParamConstants.ROE);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'returnOnEquity');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.ROE);
     }
   }
 
   onSelectROA() {
-    if (!this.selectedSorting.includes('returnOnAssets')) {
-      this.selectedSorting.push('returnOnAssets');
+    if (!this.selectedSorting.includes(ParamConstants.ROA)) {
+      this.selectedSorting.push(ParamConstants.ROA);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'returnOnAssets');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.ROA);
     }
   }
 
   onSelectDivY() {
-    if (!this.selectedSorting.includes('dividendYield')) {
-      this.selectedSorting.push('dividendYield');
+    if (!this.selectedSorting.includes(ParamConstants.DIVIDEND_YIELD)) {
+      this.selectedSorting.push(ParamConstants.DIVIDEND_YIELD);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'dividendYield');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.DIVIDEND_YIELD);
     }
   }
 
   onSelectTrROE() {
-    if (!this.selectedSorting.includes('trendROE')) {
-      this.selectedSorting.push('trendROE');
+    if (!this.selectedSorting.includes(ParamConstants.TREND_ROE)) {
+      this.selectedSorting.push(ParamConstants.TREND_ROE);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'trendROE');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.TREND_ROE);
     }
   }
 
   onSelectTrEPS() {
-    if (!this.selectedSorting.includes('trendEPS')) {
-      this.selectedSorting.push('trendEPS');
+    if (!this.selectedSorting.includes(ParamConstants.TREND_EPS)) {
+      this.selectedSorting.push(ParamConstants.TREND_EPS);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'trendEPS');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.TREND_EPS);
     }
   }
 
   onSelectTrDTE() {
-    if (!this.selectedSorting.includes('trendDebtToEquity')) {
-      this.selectedSorting.push('trendDebtToEquity');
+    if (!this.selectedSorting.includes(ParamConstants.TREND_DEBT_TO_EQUITY)) {
+      this.selectedSorting.push(ParamConstants.TREND_DEBT_TO_EQUITY);
     } else {
-      this.selectedSorting = this.selectedSorting.filter(e => e !== 'trendDebtToEquity');
+      this.selectedSorting = this.selectedSorting.filter(e => e !== ParamConstants.TREND_DEBT_TO_EQUITY);
     }
   }
 

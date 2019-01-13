@@ -38,15 +38,15 @@
             <th style="width: 170px;">Name</th>
             <th style="width: 100px;">Sector</th>
             <th style="width: 70px;">Price</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('priceToBook') != -1}" (click)="onSelectPB()">P/B</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('latestEPS') != -1}" (click)="onSelectEPS()">EPS</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('peRatio') != -1}" (click)="onSelectPE()">P/E</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnEquity') != -1}" (click)="onSelectROE()">ROE</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('returnOnAssets') != -1}" (click)="onSelectROA()">ROA</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('dividendYield') != -1}" (click)="onSelectDivY()">DivY</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendROE') != -1}" (click)="onSelectTrROE()">t_ROE</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendEPS') != -1}" (click)="onSelectTrEPS()">t_EPS</th>
-            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('trendDebtToEquity') != -1}" (click)="onSelectTrDTE()">t_D/E</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('pb') != -1}" (click)="onSelectPB()">P/B</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('eps') != -1}" (click)="onSelectEPS()">EPS</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('pe') != -1}" (click)="onSelectPE()">P/E</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('roe') != -1}" (click)="onSelectROE()">ROE</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('roa') != -1}" (click)="onSelectROA()">ROA</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('dy') != -1}" (click)="onSelectDivY()">DivY</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('tr_roe') != -1}" (click)="onSelectTrROE()">t_ROE</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('tr_eps') != -1}" (click)="onSelectTrEPS()">t_EPS</th>
+            <th style="width: 70px;" class="th-toCalc" [ngClass]="{'selected-ratio':selectedSorting.indexOf('tr_de') != -1}" (click)="onSelectTrDTE()">t_D/E</th>
             <th style="width: 35px;"></th>
           </tr>
         </thead>
