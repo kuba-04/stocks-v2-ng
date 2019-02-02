@@ -1,0 +1,11 @@
+<table class="table table-stripped" style="table-layout: fixed;">
+    <tbody>
+          <ul *ngFor="let post of posts; let i = index">
+            <h2> {{ post.title }} </h2>
+            <div> {{ post.content }} </div>
+            <br>
+            <div style="color: grey; font-style: italic"> {{ post.author }} | {{ post.date }}</div>
+            <hr>
+          </ul>
+    </tbody>
+</table>

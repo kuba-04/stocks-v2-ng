@@ -9,6 +9,7 @@ import { RegisterSuccessComponent } from "./auth/register/register-success/regis
 import { RegisterConfirmedComponent } from "./auth/register/register-confirmed/register-confirmed.component";
 import { ResetPasswordComponent } from "./auth/login/reset-password/reset-password.component";
 import { ChangePasswordComponent } from "./auth/login/change-password/change-password.component";
+import { BlogComponent } from "./blog/blog.component";
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'portfolio/main', pathMatch: 'full' },
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
     { path: 'user/register-success', component: RegisterSuccessComponent },
     { path: 'user/register-confirmed', component: RegisterConfirmedComponent },
     { path: 'user/reset-password', component: ResetPasswordComponent },
-    { path: 'user/change-password', component: ChangePasswordComponent }
+    { path: 'user/change-password', component: ChangePasswordComponent },
+    { path: 'blog', component: BlogComponent }
 ]
 
 @NgModule({

@@ -1,22 +1,31 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a routerLink="/" class="navbar-brand">Stocks app</a>
-    <div class="nav navbar-nav navbar-right">
-      <ng-template [ngIf]="authenticationService.getToken() == ''">
-        <a routerLink="user/login">Login</a>
-      </ng-template>
-      <ng-template [ngIf]="authenticationService.getCurrentUser().length > 0">
-        <div ngbDropdown class="d-inline-block">
-            <a class="btn" id="dropdownBasic1" ngbDropdownToggle>
-              {{ this.authenticationService.getCurrentUser() }}
-            </a>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button class="dropdown-item" routerLink="user/change-password">Change Password</button>
-              <button class="dropdown-item" (click)="onDeleteAccount()">Delete Account</button>
-              <button class="dropdown-item" (click)="onLogout()">Logout</button>
-            </div>
-          </div>
-      </ng-template>
-    </div>
-  </div>
-</nav>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a routerLink="/blog" class="navbar-brand">blog</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/" class="navbar-brand">app</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <ng-template [ngIf]="authenticationService.getToken() == ''">
+            <a routerLink="user/login">Login</a>
+          </ng-template>
+          <ng-template [ngIf]="authenticationService.getCurrentUser().length > 0">
+            <div ngbDropdown class="d-inline-block">
+                <a class="btn" id="dropdownBasic1" ngbDropdownToggle>
+                  {{ this.authenticationService.getCurrentUser() }}
+                </a>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button class="dropdown-item" routerLink="user/change-password">Change Password</button>
+                  <button class="dropdown-item" (click)="onDeleteAccount()">Delete Account</button>
+                  <button class="dropdown-item" (click)="onLogout()">Logout</button>
+                </div>
+              </div>
+          </ng-template>
+        </li>
+      </ul>
+  </nav>
+<div>
